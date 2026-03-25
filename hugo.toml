@@ -1,0 +1,86 @@
+baseURL = 'https://semphyx.github.io/'
+languageCode = 'ja'
+title = 'semphyx lab'
+theme = 'PaperMod'
+paginate = 5
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[params]
+  env = "production"
+  description = "シミュレーション・技術情報の発信サイト"
+  author = "semphyx"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+
+  [params.homeInfoParams]
+    Title = "semphyx lab"
+    Content = "シミュレーション・技術情報を発信しています"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/semphyx"
+
+[params.assets]
+  disableFingerprinting = false
+
+[params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = ["title", "permalink", "summary", "content"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['$$', '$$'], ['\[', '\]']]
+          inline = [['$', '$'], ['\(', '\)']]
+  [markup.highlight]
+    noClasses = false
+
+[[menu.main]]
+  identifier = "posts"
+  name = "Posts"
+  url = "/posts/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "search"
+  name = "Search"
+  url = "/search/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "about"
+  name = "About"
+  url = "/about/"
+  weight = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
