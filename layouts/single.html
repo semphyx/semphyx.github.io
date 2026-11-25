@@ -1,0 +1,35 @@
+{{ define "main" }}
+<article>
+  <h1 class="page-title">{{ .Title }}</h1>
+  {{ if eq .Section "posts" }}
+    <p class="meta">
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      {{ range .GetTerms "tags" }} <a class="tag" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
+    </p>
+    {{ if and (ne .Params.toc false) (gt (len .TableOfContents) 32) }}
+      <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
+    {{ end }}
+  {{ end }}
+
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{/* リンクページ用: front matter の groups を描画 */}}
+  {{ range .Params.groups }}
+    {{ $items := where (.items | default (slice)) "url" "!=" "" }}
+    {{ if $items }}
+    <section class="card link-group">
+      <h2>{{ .title }}</h2>
+      <ul class="link-list">
+        {{ range $items }}
+          <li>
+            <span class="link-name">{{ .name }}</span>
+            <a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a>
+            {{ with .note }}<span class="link-note">{{ . | markdownify }}</span>{{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+  {{ end }}
+</article>
+{{ end }}

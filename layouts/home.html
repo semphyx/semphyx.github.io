@@ -1,0 +1,74 @@
+{{ define "main" }}
+{{ $p := .Params }}
+
+<section class="profile">
+  <h1 class="profile-name">{{ $p.name | default site.Title }}</h1>
+  {{ with $p.name_en }}<p class="profile-name-en">{{ . }}</p>{{ end }}
+  {{ range $p.affiliations }}
+    <p class="profile-affil">
+      {{ with .position }}<span class="affil-position">{{ . }}</span>{{ end }}
+      {{ with .department }}<span>{{ . }}</span>{{ end }}
+      {{ with .organization }}<span class="affil-org">{{ . }}</span>{{ end }}
+    </p>
+  {{ end }}
+</section>
+
+<div class="grid">
+  <section class="card card-wide">
+    <h2>研究分野</h2>
+    <div class="prose">{{ .Content }}</div>
+  </section>
+
+  {{ with $p.researchmap }}
+  <section class="card card-wide callout">
+    <h2>研究業績</h2>
+    <p>経歴・論文・講演などの研究業績は <strong>researchmap</strong> にまとめています。</p>
+    <p><a class="button" href="{{ . }}" target="_blank" rel="noopener">researchmap を開く ↗</a></p>
+  </section>
+  {{ end }}
+
+  {{ with $p.news }}
+  <section class="card card-wide">
+    <h2>お知らせ</h2>
+    <ul class="news">
+      {{ range . }}
+        <li><time>{{ .date }}</time><div>{{ .text | markdownify }}</div></li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  {{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
+  {{ with $contact }}
+  <section class="card">
+    <h2>連絡先</h2>
+    <dl class="kv">
+      {{ range . }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
+    </dl>
+  </section>
+  {{ end }}
+
+  {{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
+  {{ with $ids }}
+  <section class="card">
+    <h2>外部ID</h2>
+    <ul class="link-list">
+      {{ range . }}<li><span class="link-name">{{ .name }}</span><a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></li>{{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  {{ $posts := first 3 (where site.RegularPages "Section" "posts") }}
+  {{ with $posts }}
+  <section class="card card-wide">
+    <h2>最近の記事</h2>
+    <ul class="post-list compact">
+      {{ range . }}
+        <li><time>{{ .Date.Format "2006-01-02" }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+    <p class="more"><a href="{{ "/posts/" | relURL }}">記事一覧へ →</a></p>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

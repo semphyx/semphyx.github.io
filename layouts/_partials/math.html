@@ -1,4 +1,5 @@
-{{ if or .Params.math (and .Site.Params.math (ne .Params.math false)) }}
+{{- /* front matter で math: true のページ(とホーム)だけ KaTeX を読み込む */ -}}
+{{ if or .IsHome .Params.math }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
   integrity="sha384-nB0miv6/jRmo5AMESBER0EKQn8Wuih2hFf6pYBCaHdWjr5JpJNq0Rr8richtofON" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
@@ -7,12 +8,12 @@
   integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRjXdGJ+hTh3lt2D" crossorigin="anonymous"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    renderMathInElement(document.body, {
+    renderMathInElement(document.querySelector("main"), {
       delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true }
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false }
       ],
       throwOnError: false
     });
