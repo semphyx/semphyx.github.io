@@ -7,11 +7,8 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 
-[pagination]
-  pagerSize = 10
-
-[taxonomies]
-  tag = "tags"
+# 記事・タグ・RSS は使わない
+disableKinds = ["section", "taxonomy", "term", "rss"]
 
 [minify]
   disableXML = true
@@ -33,9 +30,6 @@ buildExpired = false
       unsafe = true
   [markup.highlight]
     noClasses = false
-  [markup.tableOfContents]
-    startLevel = 2
-    endLevel = 3
 
 [[menu.main]]
   identifier = "home"
@@ -44,19 +38,13 @@ buildExpired = false
   weight = 10
 
 [[menu.main]]
-  identifier = "posts"
-  name = "記事"
-  url = "/posts/"
-  weight = 20
-
-[[menu.main]]
   identifier = "links"
   name = "リンク"
   url = "/links/"
   weight = 30
 
 [outputs]
-  home = ["HTML", "RSS"]
+  home = ["HTML"]
 
 # サイドバーで見出しつきのグループを作る例(parent を持つ項目がその見出しの下に並びます)
 # [[menu.main]]

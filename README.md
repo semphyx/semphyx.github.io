@@ -9,7 +9,7 @@
 |---|---|
 | 名前・所属・研究分野・お知らせ・連絡先・外部ID | `content/_index.md`(front matter と本文) |
 | リンク集 | `content/links.md` の `groups` |
-| 記事 | `content/posts/*.md`(数式を使う記事は `math: true`) |
+| ページの追加 | `content/*.md`(数式を使うページは front matter に `math: true`) |
 | メニュー・サイト名 | `hugo.toml` |
 | 見た目 | `assets/css/main.css`、`layouts/` |
 

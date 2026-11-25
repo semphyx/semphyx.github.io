@@ -1,15 +1,6 @@
 {{ define "main" }}
 <article>
   <h1 class="page-title">{{ .Title }}</h1>
-  {{ if eq .Section "posts" }}
-    <p class="meta">
-      <time>{{ .Date.Format "2006-01-02" }}</time>
-      {{ range .GetTerms "tags" }} <a class="tag" href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
-    </p>
-    {{ if and (ne .Params.toc false) (gt (len .TableOfContents) 32) }}
-      <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
-    {{ end }}
-  {{ end }}
 
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 

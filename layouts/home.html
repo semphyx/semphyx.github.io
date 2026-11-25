@@ -59,17 +59,5 @@
   </section>
   {{ end }}
 
-  {{ $posts := first 3 (where site.RegularPages "Section" "posts") }}
-  {{ with $posts }}
-  <section class="card card-wide">
-    <h2>最近の記事</h2>
-    <ul class="post-list compact">
-      {{ range . }}
-        <li><time>{{ .Date.Format "2006-01-02" }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-      {{ end }}
-    </ul>
-    <p class="more"><a href="{{ "/posts/" | relURL }}">記事一覧へ →</a></p>
-  </section>
-  {{ end }}
 </div>
 {{ end }}
