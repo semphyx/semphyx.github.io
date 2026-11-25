@@ -1,18 +1,32 @@
-{{ $current := .RelPermalink }}
-<header class="site-header">
-  <div class="container header-row">
+{{- $current := .RelPermalink -}}
+<aside class="sidebar">
+  <div class="sidebar-top">
     <a class="site-title" href="{{ "/" | relURL }}">{{ site.Title }}</a>
-    <button class="theme-toggle" type="button" aria-label="ライト/ダークを切り替え" title="ライト/ダークを切り替え">
-      <span class="icon-sun" aria-hidden="true">☀</span><span class="icon-moon" aria-hidden="true">☾</span>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">メニュー</button>
+  </div>
+  <nav id="site-nav" class="site-nav" aria-label="メインメニュー">
+    {{- /* 子を持たない項目を先に並べ、子を持つ項目は見出し + 子項目のグループにする */ -}}
+    <ul class="nav-list">
+      {{- range site.Menus.main }}
+        {{- if not .HasChildren }}
+          {{- partial "nav-item.html" (dict "entry" . "current" $current) }}
+        {{- end }}
+      {{- end }}
+    </ul>
+    {{- range site.Menus.main }}
+      {{- if .HasChildren }}
+      <p class="nav-heading">{{ .Name }}</p>
+      <ul class="nav-list">
+        {{- range .Children }}
+          {{- partial "nav-item.html" (dict "entry" . "current" $current) }}
+        {{- end }}
+      </ul>
+      {{- end }}
+    {{- end }}
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="theme-toggle" type="button" aria-label="ライト/ダークを切り替え">
+      <span class="icon-moon" aria-hidden="true">☾ ダーク</span><span class="icon-sun" aria-hidden="true">☀ ライト</span>
     </button>
   </div>
-  <nav class="site-nav" aria-label="メインメニュー">
-    <ul class="container">
-      {{ range site.Menus.main }}
-        {{ $url := .URL | relURL }}
-        {{ $active := or (eq $current $url) (and (ne .URL "/") (hasPrefix $current $url)) }}
-        <li><a href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
-      {{ end }}
-    </ul>
-  </nav>
-</header>
+</aside>

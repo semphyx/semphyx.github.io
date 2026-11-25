@@ -58,3 +58,14 @@ buildExpired = false
 
 [outputs]
   home = ["HTML", "RSS"]
+
+# サイドバーで見出しつきのグループを作る例(parent を持つ項目がその見出しの下に並びます)
+# [[menu.main]]
+#   identifier = "lectures"
+#   name = "Lectures"
+#   weight = 100
+# [[menu.main]]
+#   parent = "lectures"
+#   name = "数理情報演習"
+#   url = "/lectures/exercise/"
+#   weight = 1

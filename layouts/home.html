@@ -39,8 +39,10 @@
   {{ end }}
 
   {{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
+  {{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
+  {{ $half := and $contact $ids }}
   {{ with $contact }}
-  <section class="card">
+  <section class="card{{ if not $half }} card-wide{{ end }}">
     <h2>連絡先</h2>
     <dl class="kv">
       {{ range . }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
@@ -48,9 +50,8 @@
   </section>
   {{ end }}
 
-  {{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
   {{ with $ids }}
-  <section class="card">
+  <section class="card{{ if not $half }} card-wide{{ end }}">
     <h2>外部ID</h2>
     <ul class="link-list">
       {{ range . }}<li><span class="link-name">{{ .name }}</span><a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></li>{{ end }}

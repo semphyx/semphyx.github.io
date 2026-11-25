@@ -21,11 +21,15 @@
   {{ end }}
   {{ partial "math.html" . }}
 </head>
-<body>
-  {{ partial "header.html" . }}
-  <main class="container">
-    {{ block "main" . }}{{ end }}
-  </main>
-  {{ partial "footer.html" . }}
+<body id="top">
+  <div class="layout">
+    {{ partial "header.html" . }}
+    <div class="content">
+      <main class="container">
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+  </div>
 </body>
 </html>
