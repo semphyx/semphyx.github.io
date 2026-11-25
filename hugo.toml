@@ -20,7 +20,6 @@ buildExpired = false
 [params]
   description = "研究紹介サイト"
   author = "semphyx"
-  github = "https://github.com/semphyx"
 
 [markup]
   [markup.goldmark]

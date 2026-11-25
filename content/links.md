@@ -21,11 +21,4 @@ groups:
       - name: "TODO: 所属機関名"
         url: ""
 
-  - title: "GitHub"
-    items:
-      - name: "semphyx"
-        url: "https://github.com/semphyx"
-      - name: "semphyx.github.io(本サイトのソース)"
-        url: "https://github.com/semphyx/semphyx.github.io"
-        note: "Hugo で作成し、GitHub Pages で公開しています。"
 ---

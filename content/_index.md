@@ -20,8 +20,6 @@ ids:                       # 外部 ID(URL が空のものは表示されませ�
     url: "https://researchmap.jp/"       # TODO
   - name: "ORCID"
     url: ""
-  - name: "GitHub"
-    url: "https://github.com/semphyx"
 
 contact:                   # 連絡先(不要な項目は削除してください)
   - label: "所在地"
