@@ -146,18 +146,17 @@ main.container { padding-top: 72px; padding-bottom: 80px; }
 .tree .tree { padding-left: 14px; }
 .tree summary { position: relative; padding: 6px 28px 6px 40px; }
 .tree summary::before { position: absolute; left: 28px; }
-.tree summary:hover, .tree-leaf a:hover, .tree-empty a:hover { background-color: var(--side-hover); }
-.tree summary a, .tree-empty a, .tree-leaf a { color: var(--side-text); background: none; }
+.tree summary:hover, .tree-item a:hover { background-color: var(--side-hover); }
+.tree summary a, .tree-item a { color: var(--side-text); background: none; }
 .tree summary a { flex: 1; min-width: 0; }
 .tree-count { flex: none; margin-left: 8px; font-size: .75rem; color: var(--side-text); opacity: .75; font-variant-numeric: tabular-nums; }
-.tree-empty a { display: block; padding: 6px 28px 6px 40px; }
-.tree-leaf a {
-  display: block; position: relative; padding: 4px 20px 4px 40px; font-size: .86rem; line-height: 1.5;
-  overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-}
+.tree-item a { display: flex; align-items: center; padding: 6px 28px 6px 40px; }
+.tree-item a span:first-child { flex: 1; min-width: 0; }
 .tree a[aria-current="page"] { color: var(--side-strong); font-weight: 700; }
-.tree-leaf a[aria-current="page"]::before {
-  content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: var(--accent);
+.tree summary { position: relative; }
+.tree li { position: relative; }
+.tree a[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; background: var(--accent);
 }
 
 .sidebar-bottom { padding: 0 28px; }
@@ -290,8 +289,7 @@ article .page-head + .prose, article .toc + .prose { margin-top: 36px; }
   .nav-tree > summary { padding: 0 20px 6px; }
   .tree summary { padding-left: 32px; padding-right: 20px; }
   .tree summary::before { left: 20px; }
-  .tree-empty a { padding-left: 32px; }
-  .tree-leaf a { padding-left: 32px; }
+  .tree-item a { padding-left: 32px; padding-right: 20px; }
   .cat-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cat-list a { padding: 14px 14px; }
   .cat-en { font-size: .7rem; letter-spacing: .04em; }
