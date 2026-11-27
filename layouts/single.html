@@ -1,6 +1,9 @@
 {{ define "main" }}
 <article>
-  <h1 class="page-title">{{ .Title }}</h1>
+  <header class="page-head">
+    {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    <h1 class="page-title">{{ .Title }}</h1>
+  </header>
 
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 
@@ -8,14 +11,16 @@
   {{ range .Params.groups }}
     {{ $items := where (.items | default (slice)) "url" "!=" "" }}
     {{ if $items }}
-    <section class="card link-group">
-      <h2>{{ .title }}</h2>
+    <section class="section">
+      {{ partial "section-head.html" (dict "en" (.en | default "") "ja" .title) }}
       <ul class="link-list">
         {{ range $items }}
           <li>
-            <span class="link-name">{{ .name }}</span>
-            <a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a>
-            {{ with .note }}<span class="link-note">{{ . | markdownify }}</span>{{ end }}
+            <a href="{{ .url }}" target="_blank" rel="noopener">
+              <span class="link-name">{{ .name }}</span>
+              <span class="link-url">{{ .url }}</span>
+            </a>
+            {{ with .note }}<div class="link-note">{{ . | markdownify }}</div>{{ end }}
           </li>
         {{ end }}
       </ul>

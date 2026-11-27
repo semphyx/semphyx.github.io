@@ -1,63 +1,61 @@
 {{ define "main" }}
 {{ $p := .Params }}
 
-<section class="profile">
+<header class="profile">
+  {{ with $p.name_en }}<p class="eyebrow">{{ . }}</p>{{ end }}
   <h1 class="profile-name">{{ $p.name | default site.Title }}</h1>
-  {{ with $p.name_en }}<p class="profile-name-en">{{ . }}</p>{{ end }}
-  {{ range $p.affiliations }}
-    <p class="profile-affil">
-      {{ with .position }}<span class="affil-position">{{ . }}</span>{{ end }}
-      {{ with .department }}<span>{{ . }}</span>{{ end }}
-      {{ with .organization }}<span class="affil-org">{{ . }}</span>{{ end }}
-    </p>
+  {{ with $p.affiliations }}
+  <ul class="affil">
+    {{ range . }}
+      <li>
+        {{ with .position }}<span class="affil-position">{{ . }}</span>{{ end }}
+        {{ with .department }}<span>{{ . }}</span>{{ end }}
+        {{ with .organization }}<span class="affil-org">{{ . }}</span>{{ end }}
+      </li>
+    {{ end }}
+  </ul>
   {{ end }}
+</header>
+
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "Research" "ja" "研究分野") }}
+  <div class="prose">{{ .Content }}</div>
 </section>
 
-<div class="grid">
-  <section class="card card-wide">
-    <h2>研究分野</h2>
-    <div class="prose">{{ .Content }}</div>
-  </section>
+{{ with $p.researchmap }}
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "Achievements" "ja" "研究業績") }}
+  <a class="outlink" href="{{ . }}" target="_blank" rel="noopener">
+    <span class="outlink-body">
+      <span class="outlink-title">researchmap</span>
+      <span class="outlink-note">経歴・論文・講演などの研究業績はこちらに掲載しています</span>
+    </span>
+    <span class="outlink-arrow" aria-hidden="true">→</span>
+  </a>
+</section>
+{{ end }}
 
-  {{ with $p.researchmap }}
-  <section class="card card-wide callout">
-    <h2>研究業績</h2>
-    <p>経歴・論文・講演などの研究業績は <strong>researchmap</strong> にまとめています。</p>
-    <p><a class="button" href="{{ . }}" target="_blank" rel="noopener">researchmap を開く ↗</a></p>
-  </section>
-  {{ end }}
+{{ with $p.news }}
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "News" "ja" "お知らせ") }}
+  <dl class="news">
+    {{ range . }}
+      <dt><time>{{ .date }}</time></dt>
+      <dd>{{ .text | markdownify }}</dd>
+    {{ end }}
+  </dl>
+</section>
+{{ end }}
 
-  {{ with $p.news }}
-  <section class="card card-wide">
-    <h2>お知らせ</h2>
-    <ul class="news">
-      {{ range . }}
-        <li><time>{{ .date }}</time><div>{{ .text | markdownify }}</div></li>
-      {{ end }}
-    </ul>
-  </section>
-  {{ end }}
-
-  {{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
-  {{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
-  {{ $half := and $contact $ids }}
-  {{ with $contact }}
-  <section class="card{{ if not $half }} card-wide{{ end }}">
-    <h2>連絡先</h2>
-    <dl class="kv">
-      {{ range . }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
-    </dl>
-  </section>
-  {{ end }}
-
-  {{ with $ids }}
-  <section class="card{{ if not $half }} card-wide{{ end }}">
-    <h2>外部ID</h2>
-    <ul class="link-list">
-      {{ range . }}<li><span class="link-name">{{ .name }}</span><a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></li>{{ end }}
-    </ul>
-  </section>
-  {{ end }}
-
-</div>
+{{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
+{{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
+{{ if or $contact $ids }}
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
+  <dl class="kv">
+    {{ range $contact }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
+    {{ range $ids }}<dt>{{ .name }}</dt><dd><a class="mono-link" href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></dd>{{ end }}
+  </dl>
+</section>
+{{ end }}
 {{ end }}

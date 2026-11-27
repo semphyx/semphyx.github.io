@@ -1,5 +1,6 @@
 ---
 title: "リンク"
+eyebrow: "Links"
 url: "/links/"
 # ---------------------------------------------------------------
 # グループごとにリンクを並べます。url が空の項目は表示されません。
@@ -7,6 +8,7 @@ url: "/links/"
 # ---------------------------------------------------------------
 groups:
   - title: "研究者情報"
+    en: "Researcher profiles"
     items:
       - name: "researchmap"
         url: "https://researchmap.jp/"   # TODO: 自分のページの URL
@@ -17,6 +19,7 @@ groups:
         url: ""
 
   - title: "所属機関"
+    en: "Affiliation"
     items:
       - name: "TODO: 所属機関名"
         url: ""
