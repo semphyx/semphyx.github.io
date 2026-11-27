@@ -407,6 +407,14 @@ article .page-head + .note-body, .note-body .toc + .prose { margin-top: 36px; }
 .prose h2, .prose h3 { scroll-margin-top: 24px; }
 .prose h3 { font-family: var(--font-serif); font-size: 1.1rem; margin: 2em 0 .5em; }
 .prose a { background-size: 100% 1px; }
+.prose img { display: block; max-width: min(100%, 640px); height: auto; margin: 1.6em auto .4em; }
+.prose p:has(> img) + p > em:only-child { display: block; text-align: center; font-size: .9rem; color: var(--ink-soft); }
+.prose .code-label { margin: 1.4em 0 -.6em; padding: 6px 12px; font-size: .85rem; color: var(--ink-soft); background: var(--tint); border-left: 3px solid var(--accent); }
+.prose .code-label code { background: none; padding: 0; color: var(--ink); }
+.source-details { margin: 1.2em 0; border: 1px solid var(--rule); }
+.source-details > summary { cursor: pointer; padding: 8px 14px; font-size: .9rem; font-weight: 700; color: var(--accent-text); background: var(--tint); }
+.source-details > summary code { background: none; padding: 0; }
+.source-details .highlight, .source-details pre { margin: 0; }
 .prose blockquote { margin: 1.2em 0; padding: 0 1.2em; border-left: 2px solid var(--accent); color: var(--ink-soft); }
 .prose table { border-collapse: collapse; display: block; overflow-x: auto; font-size: .93rem; margin: 1.4em 0; }
 .prose th, .prose td { border-bottom: 1px solid var(--rule); padding: 8px 14px; text-align: left; }
