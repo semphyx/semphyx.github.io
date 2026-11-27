@@ -1,9 +1,10 @@
 {{ define "main" }}
 {{ $doc := in (slice "notes" "lectures") .Section }}
+{{ $tool := eq .Section "tools" }}
 <article>
   <header class="page-head">
     {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
-    {{ if $doc }}
+    {{ if or $doc $tool }}
       {{ partial "crumb.html" . }}
     {{ end }}
     {{ if eq .Section "lectures" }}{{ with partial "chapter-number.html" . }}<p class="chapter-no">第 {{ . }} 章</p>{{ end }}{{ end }}
@@ -42,6 +43,13 @@
         {{ end }}
       </ul>
     </section>
+    {{ end }}
+  {{ end }}
+
+  {{ if $tool }}
+    {{ partial "tag-list.html" . }}
+    {{ range .Resources.Match "*.js" }}
+      {{ with . | js.Build (dict "minify" true) | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>{{ end }}
     {{ end }}
   {{ end }}
 

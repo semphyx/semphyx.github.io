@@ -1,0 +1,21 @@
+{{ define "main" }}
+<header class="page-head">
+  {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+{{ with .Content }}<div class="prose lecture-intro">{{ . }}</div>{{ end }}
+{{ with .RegularPages.ByWeight }}
+<ul class="course-list tool-list">
+  {{ range . }}
+    <li>
+      <a href="{{ .RelPermalink }}">
+        <span class="course-title">{{ .Title }}</span>
+        {{ with .Params.summary }}<span class="course-summary">{{ . }}</span>{{ end }}
+      </a>
+    </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="empty">まだツールはありません。</p>
+{{ end }}
+{{ end }}

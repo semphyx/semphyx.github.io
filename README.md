@@ -46,6 +46,19 @@ hugo new lectures/semiconductor-physics/03-carrier.md
 
 章は `weight` の順に「第 1 章」「第 2 章」…と番号が付き、前後の章へのリンクもこの順になります。
 
+## ツール(ブラウザで動く計算機など)
+
+ツールごとにフォルダを作り、説明と画面(HTML)を `index.md` に、動きを `.js` に書きます。
+同じフォルダの `.js` は自動で読み込まれます。並び順は `weight` です。
+
+```
+content/tools/pn-junction/index.md   ← 説明と入力欄・結果欄(HTML)
+content/tools/pn-junction/tool.js    ← 計算の処理
+```
+
+サイト内のページへのリンクは、`/staging/` でも正しく動くように
+`[ノート]({{</* relref "/notes/..." */>}})` の形で書きます。
+
 ## 注記ボックス
 
 ノートの中で、次のように書くと色付きのボックスになります。

@@ -1,0 +1,15 @@
+{{- /* サイドバーのツール一覧 */ -}}
+{{- $current := .current -}}
+{{- with site.GetPage "/tools" }}
+{{- $url := .RelPermalink }}
+<details class="nav-tree" open>
+  <summary><a class="nav-tree-root" href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
+  {{- with .RegularPages.ByWeight }}
+  <ul class="tree">
+    {{- range . }}
+    <li class="tree-item"><a href="{{ .RelPermalink }}"{{ if eq $current .RelPermalink }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</details>
+{{- end }}
