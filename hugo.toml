@@ -15,7 +15,7 @@ disableKinds = ["taxonomy", "term", "rss"]
   minifyOutput = true
 
 [params]
-  description = "研究紹介サイト"
+  description = "半導体物理や数学などの学習ノートを発信しています"
   author = "semphyx"
 
 [markup]
