@@ -208,14 +208,14 @@ def combine_twinx_legend(ax1: Axes, ax2: Axes, loc=2, borderaxespad: float = 0.0
 
 `apply_style()` を土台にして、文字サイズと線の太さを 1 段幅(89 mm)の仕上がりに合わせ、色覚の多様性に配慮した配色を加えた例です。題材は薄膜トランジスタ(n 型)の特性で、上下 2 段のパネルにしています。
 
-- **(a) 出力特性**:ゲート電圧 $V_G$ ごとのドレイン電流 $I_D$–ドレイン電圧 $V_D$(ソース電圧 $V_S = 0$ V)。
+- **(a) 出力特性**:ゲート電圧 $V_G$ ごとのドレイン電流 $I_D$–ドレイン電圧 $V_D$。
 - **(b) 伝達特性**:飽和領域($V_D = 10$ V、ソース電圧 $V_S = 0$ V)での $I_D$–$V_G$。左軸に $\log I_D$、右の**副軸**に $\sqrt{I_D}$ をとります。飽和領域では $I_D = \frac{W}{2L}\mu C_i (V_G - V_{th})^2$ なので、$\sqrt{I_D}$ は $V_G$ に対して直線になり、その直線と横軸との交点からしきい値電圧 $V_{th}$ が、傾きから飽和移動度が求まります。1 枚の図で、オフ電流やサブスレッショルドスイング(左軸)と、しきい値電圧(右軸)を同時に読めるのが、この描き方の利点です。
 
 データは二乗則のモデルに 2 % のばらつきを加えて作った模擬データです(しきい値電圧 1.0 V、移動度 10 cm²/Vs、サブスレッショルドスイング 0.2 V/dec)。
 
 ![トランジスタの出力特性と伝達特性を 1 段幅で仕上げた図](fig-journal-web.png)
 
-*図 3:1 段幅 89 mm、文字 8 pt で仕上げた図。(a) は $V_S$ = 0 V で測った出力特性。(b) は $V_D$ = 10 V、$V_S$ = 0 V(ソース接地)で測った伝達特性で、破線は $\sqrt{I_D}$ の直線部分($V_G$ = 5〜10 V)の近似直線。印刷用の [PDF 版](fig-journal.pdf)(フォントは TrueType で埋め込み済み)。*
+*図 3:1 段幅 89 mm、文字 8 pt で仕上げた図。(b) は $V_D$ = 10 V、$V_S$ = 0 V(ソース接地)で測った伝達特性で、破線は $\sqrt{I_D}$ の直線部分($V_G$ = 5〜10 V)の近似直線。印刷用の [PDF 版](fig-journal.pdf)(フォントは TrueType で埋め込み済み)。*
 
 下のコードは、データを作る部分(`vg`、`id_meas` などの配列と近似直線の係数)を省いた描画部分の抜粋です。動作には Python 3.10 以上と matplotlib 3.6 以上が必要です。データの作成まで含めてそのまま動くスクリプトは [`figure_example.py`](figure_example.py) にあります(この記事の [`plot_style.py`](plot_style.py)・[`plot_utils.py`](plot_utils.py) と同じフォルダに置いて実行します)。
 
@@ -268,8 +268,6 @@ ax1.set_xlabel(r"Drain voltage $V_D$ (V)")
 ax1.set_ylabel(r"Drain current $I_D$ ($\mu$A)")
 ax1.set_xlim(0, 10)
 ax1.set_ylim(0, None)
-ax1.text(0.97, 0.36, r"$V_S$ = 0 V", transform=ax1.transAxes,   # 測定条件
-         ha="right", va="bottom", fontsize=7)
 ax1.legend(title=r"$V_G$", loc="upper left")
 
 # (b) 伝達特性:左軸 log I_D、右の副軸 sqrt(I_D)
