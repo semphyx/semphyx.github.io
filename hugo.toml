@@ -1,57 +1,32 @@
 baseURL = 'https://semphyx.github.io/'
 languageCode = 'ja'
-title = 'semphyx lab'
-theme = 'PaperMod'
-paginate = 5
+title = '半導体の余白ノート'
 
 enableRobotsTXT = true
 buildDrafts = false
 buildFuture = false
 buildExpired = false
 
+# タグ・RSS は使わない
+disableKinds = ["taxonomy", "term", "rss"]
+
 [minify]
   disableXML = true
   minifyOutput = true
 
 [params]
-  env = "production"
-  description = "シミュレーション・技術情報の発信サイト"
-  author = "semphyx"
-  defaultTheme = "auto"
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowWordCount = false
-  ShowRssButtonInSectionTermList = true
-  UseHugoToc = true
-  disableSpecial1stPost = false
-  disableScrollToTop = false
-  comments = false
-  hidemeta = false
-  hideSummary = false
-  showtoc = true
+  description = "半導体物理や数学などの学習ノートを発信しています"
+  author = "半導体の余白ノート"
+  # サイドバーの題字(上段は小さく、下段は大きく表示)
+  titleSub = "半導体の"
+  titleMain = "余白ノート"
 
-  [params.homeInfoParams]
-    Title = "semphyx lab"
-    Content = "シミュレーション・技術情報を発信しています"
-
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/semphyx"
-
-[params.assets]
-  disableFingerprinting = false
-
-[params.fuseOpts]
-  isCaseSensitive = false
-  shouldSort = true
-  location = 0
-  distance = 1000
-  threshold = 0.4
-  minMatchCharLength = 0
-  keys = ["title", "permalink", "summary", "content"]
+  # ノートのコメント欄(giscus)。repoId と categoryId を https://giscus.app で取得して記入すると表示される
+  [params.giscus]
+    repo = "semphyx/semphyx.github.io"
+    repoId = "R_kgDORwac8g"
+    category = "Announcements"
+    categoryId = "DIC_kwDORwac8s4DMECg"
 
 [markup]
   [markup.goldmark]
@@ -61,26 +36,33 @@ buildExpired = false
         [markup.goldmark.extensions.passthrough.delimiters]
           block = [['$$', '$$'], ['\[', '\]']]
           inline = [['$', '$'], ['\(', '\)']]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.highlight]
     noClasses = false
 
 [[menu.main]]
-  identifier = "posts"
-  name = "Posts"
-  url = "/posts/"
+  identifier = "home"
+  name = "ホーム"
+  url = "/"
   weight = 10
 
 [[menu.main]]
-  identifier = "search"
-  name = "Search"
-  url = "/search/"
-  weight = 20
-
-[[menu.main]]
-  identifier = "about"
-  name = "About"
-  url = "/about/"
+  identifier = "links"
+  name = "リンク"
+  url = "/links/"
   weight = 30
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML"]
+
+# サイドバーで見出しつきのグループを作る例(parent を持つ項目がその見出しの下に並びます)
+# [[menu.main]]
+#   identifier = "lectures"
+#   name = "Lectures"
+#   weight = 100
+# [[menu.main]]
+#   parent = "lectures"
+#   name = "数理情報演習"
+#   url = "/lectures/exercise/"
+#   weight = 1

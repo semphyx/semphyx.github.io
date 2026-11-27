@@ -1,0 +1,45 @@
+{{ define "main" }}
+<article>
+  <header class="page-head">
+    {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+    {{ if eq .Section "notes" }}
+      <p class="crumb"><a href="{{ (site.GetPage "/notes").RelPermalink }}">ノート</a> / <a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a></p>
+    {{ end }}
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ if eq .Section "notes" }}
+      <p class="note-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}<span>更新 {{ .Lastmod.Format "2006-01-02" }}</span>{{ end }}
+      </p>
+    {{ end }}
+  </header>
+  {{ if and (eq .Section "notes") (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
+    <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
+  {{ end }}
+
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  {{/* リンクページ用: front matter の groups を描画 */}}
+  {{ range .Params.groups }}
+    {{ $items := where (.items | default (slice)) "url" "!=" "" }}
+    {{ if $items }}
+    <section class="section">
+      {{ partial "section-head.html" (dict "en" (.en | default "") "ja" .title) }}
+      <ul class="link-list">
+        {{ range $items }}
+          <li>
+            <a href="{{ .url }}" target="_blank" rel="noopener">
+              <span class="link-name">{{ .name }}</span>
+              <span class="link-url">{{ .url }}</span>
+            </a>
+            {{ with .note }}<div class="link-note">{{ . | markdownify }}</div>{{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+  {{ end }}
+
+  {{ if eq .Section "notes" }}{{ partial "comments.html" . }}{{ end }}
+</article>
+{{ end }}

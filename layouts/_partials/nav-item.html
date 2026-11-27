@@ -1,0 +1,5 @@
+{{- $e := .entry -}}
+{{- $url := $e.URL | relURL -}}
+{{- $external := hasPrefix $e.URL "http" -}}
+{{- $active := and (not $external) (or (eq .current $url) (and (ne $e.URL "/") (hasPrefix .current $url))) -}}
+<li><a href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ $e.Name }}{{ if $external }} ↗{{ end }}</a></li>

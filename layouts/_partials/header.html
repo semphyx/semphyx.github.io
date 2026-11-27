@@ -1,0 +1,49 @@
+{{- $current := .RelPermalink -}}
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <a class="site-title" href="{{ "/" | relURL }}" aria-label="{{ site.Title }}">
+      {{- with site.Params.titleMain -}}
+        {{ with site.Params.titleSub }}<span class="site-title-sub">{{ . }}</span>{{ end }}<span class="site-title-main">{{ . }}</span>
+      {{- else -}}
+        {{ site.Title }}
+      {{- end -}}
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">MENU</button>
+  </div>
+  <nav id="site-nav" class="site-nav" aria-label="メインメニュー">
+    {{- /* 子を持たない項目を先に並べ、子を持つ項目は見出し + 子項目のグループにする */ -}}
+    <ul class="nav-list">
+      {{- range site.Menus.main }}
+        {{- if not .HasChildren }}
+          {{- partial "nav-item.html" (dict "entry" . "current" $current) }}
+        {{- end }}
+      {{- end }}
+    </ul>
+    {{- /* ノート: content/notes/ の分類フォルダから自動で並べる */ -}}
+    {{- with site.GetPage "/notes" }}
+      {{- $notesURL := .RelPermalink }}
+      <a class="nav-heading" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a>
+      <ul class="nav-list">
+        {{- range .Sections.ByWeight }}
+          {{- $url := .RelPermalink }}
+          <li><a href="{{ $url }}"{{ if hasPrefix $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+        {{- end }}
+      </ul>
+    {{- end }}
+    {{- range site.Menus.main }}
+      {{- if .HasChildren }}
+      <p class="nav-heading">{{ .Name }}</p>
+      <ul class="nav-list">
+        {{- range .Children }}
+          {{- partial "nav-item.html" (dict "entry" . "current" $current) }}
+        {{- end }}
+      </ul>
+      {{- end }}
+    {{- end }}
+  </nav>
+  <div class="sidebar-bottom">
+    <button class="theme-toggle" type="button" aria-label="ライト/ダークを切り替え">
+      <span class="icon-moon" aria-hidden="true">☾ ダーク</span><span class="icon-sun" aria-hidden="true">☀ ライト</span>
+    </button>
+  </div>
+</aside>

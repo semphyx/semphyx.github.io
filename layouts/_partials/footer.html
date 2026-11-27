@@ -1,0 +1,25 @@
+<footer class="site-footer">
+  <div class="container footer-row">
+    <span>© {{ now.Year }} {{ site.Params.author }}</span>
+    <a href="#top" class="to-top">ページトップへ</a>
+  </div>
+</footer>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.querySelector(".theme-toggle");
+    if (btn) btn.addEventListener("click", function () {
+      var cur = root.getAttribute("data-theme");
+      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+    var menuBtn = document.querySelector(".menu-toggle");
+    var sidebar = document.querySelector(".sidebar");
+    if (menuBtn && sidebar) menuBtn.addEventListener("click", function () {
+      var open = sidebar.classList.toggle("is-open");
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  })();
+</script>

@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{ $p := .Params }}
+
+<h1 class="visually-hidden">{{ site.Title }}</h1>
+
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "Research" "ja" "研究分野") }}
+  <div class="prose">{{ .Content }}</div>
+</section>
+
+{{ with $p.news }}
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "News" "ja" "お知らせ") }}
+  <dl class="news">
+    {{ range . }}
+      <dt><time>{{ .date }}</time></dt>
+      <dd>{{ .text | markdownify }}</dd>
+    {{ end }}
+  </dl>
+</section>
+{{ end }}
+
+{{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
+{{ with $contact }}
+<section class="section">
+  {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
+  <dl class="kv">
+    {{ range . }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
+  </dl>
+</section>
+{{ end }}
+{{ end }}
