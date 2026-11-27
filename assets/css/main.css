@@ -213,6 +213,7 @@ article .page-head + .prose, article .toc + .prose { margin-top: 36px; }
 /* ---------- コメント ---------- */
 .comments { margin-top: 80px; }
 .comments-note { margin: 0 0 16px; font-size: .9rem; color: var(--ink-soft); }
+.comments-note code { font-family: var(--font-mono); background: var(--code-bg); padding: .05em .3em; border-radius: 2px; font-size: .9em; }
 
 /* ---------- 本文 ---------- */
 .prose > :first-child { margin-top: 0; }

@@ -3,7 +3,7 @@
 {{- if and .repoId .categoryId }}
 <section class="section comments">
   {{ partial "section-head.html" (dict "en" "Comments" "ja" "コメント") }}
-  <p class="comments-note">コメントには GitHub アカウントが必要です。数式($...$)や Markdown が使えます。</p>
+  <p class="comments-note">コメントには GitHub アカウントが必要です。数式(<code>$...$</code>)や Markdown が使えます。</p>
   <div id="giscus-container"></div>
   <script>
     (function () {
