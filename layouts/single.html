@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ $doc := in (slice "notes" "lectures") .Section }}
+{{ $doc := in (slice "notes" "lectures" "tools") .Section }}
 {{ $tool := eq .Section "tools" }}
 <article>
   <header class="page-head">
@@ -10,10 +10,12 @@
     {{ if eq .Section "lectures" }}{{ with partial "chapter-number.html" . }}<p class="chapter-no">第 {{ . }} 章</p>{{ end }}{{ end }}
     <h1 class="page-title">{{ .Title }}</h1>
     {{ if $doc }}
+      {{ if not .Date.IsZero }}
       <p class="note-meta">
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
         {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}<span>更新 {{ .Lastmod.Format "2006-01-02" }}</span>{{ end }}
       </p>
+      {{ end }}
       {{ partial "tag-list.html" . }}
     {{ end }}
   </header>
@@ -47,7 +49,6 @@
   {{ end }}
 
   {{ if $tool }}
-    {{ partial "tag-list.html" . }}
     {{ range .Resources.Match "*.js" }}
       {{ with . | js.Build (dict "minify" true) | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>{{ end }}
     {{ end }}
