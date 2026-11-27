@@ -1,5 +1,6 @@
 {{- $e := .entry -}}
 {{- $url := cond (eq $e.URL "/") site.Home.RelPermalink ($e.URL | relURL) -}}
 {{- $external := hasPrefix $e.URL "http" -}}
-{{- $active := and (not $external) (or (eq .current $url) (and (ne $e.URL "/") (hasPrefix .current $url))) -}}
+{{- $isHome := eq $url site.Home.RelPermalink -}}
+{{- $active := and (not $external) (or (eq .current $url) (and (not $isHome) (hasPrefix .current $url))) -}}
 <li><a href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}{{ if $external }} target="_blank" rel="noopener"{{ end }}>{{ $e.Name }}{{ if $external }} ↗{{ end }}</a></li>
