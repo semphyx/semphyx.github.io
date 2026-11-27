@@ -155,9 +155,7 @@ main.container { padding-top: 64px; padding-bottom: 80px; }
 .tree summary:hover, .tree-item a:hover { background-color: var(--side-hover); }
 .tree summary a, .tree-item a { color: var(--side-text); background: none; }
 .tree summary a { flex: 1; min-width: 0; }
-.tree-count { flex: none; margin-left: 8px; font-size: .8rem; color: var(--side-text); font-variant-numeric: tabular-nums; }
 .tree-item a { display: flex; align-items: center; padding: 6px 28px 6px 40px; }
-.tree-item a span:first-child { flex: 1; min-width: 0; }
 .tree a[aria-current="page"] { color: var(--side-strong); font-weight: 700; }
 .tree summary { position: relative; }
 .tree li { position: relative; }
