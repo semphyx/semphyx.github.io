@@ -1,10 +1,7 @@
-{{- /* ノートの位置表示。ホームを除くすべての親を並べ、分類ページでは自分の名前も最後に出す */ -}}
+{{- /* 位置表示。ホームを除く親をすべて並べる(自分自身はすぐ下の見出しに出るので含めない) */ -}}
 {{- $parents := where .Ancestors.Reverse "Kind" "!=" "home" -}}
-{{- if or $parents (ne .Kind "page") -}}
-{{- if $parents }}
+{{- with $parents }}
 <p class="crumb">
-  {{- range $i, $p := $parents }}{{ if $i }} / {{ end }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end }}
-  {{- if ne .Kind "page" }} / {{ .Title }}{{ end -}}
+  {{- range $i, $p := . }}{{ if $i }} / {{ end }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end -}}
 </p>
 {{- end }}
-{{- end -}}
