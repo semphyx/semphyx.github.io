@@ -1,0 +1,12 @@
+<ul class="note-list">
+  {{ range .pages }}
+    <li>
+      <a class="note-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <p class="note-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        {{ if $.showCat }}<span>{{ .Parent.Title }}</span>{{ end }}
+      </p>
+      {{ with .Params.summary }}<p class="note-summary">{{ . }}</p>{{ end }}
+    </li>
+  {{ end }}
+</ul>

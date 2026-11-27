@@ -9,11 +9,23 @@
 |---|---|
 | 名前・所属・研究分野・お知らせ・連絡先・外部ID | `content/_index.md`(front matter と本文) |
 | リンク集 | `content/links.md` の `groups` |
+| ノート | `content/notes/<分類>/*.md`(数式はそのまま使えます) |
+| ノートの分類 | `content/notes/<分類>/_index.md`(`weight` の順にサイドバーへ並ぶ) |
 | ページの追加 | `content/*.md`(数式を使うページは front matter に `math: true`) |
 | メニュー・サイト名 | `hugo.toml` |
 | 見た目 | `assets/css/main.css`、`layouts/` |
 
 `url` や `value` を空にした項目は表示されません。
+
+## ノートの書き方
+
+```bash
+hugo new notes/math/fourier-series.md
+```
+
+作られたファイルの `draft: true` を `false` にすると公開されます。分類のフォルダ名は
+`math`(数学)・`physics`(物理)・`semiconductor`(半導体)・`numerical`(数値計算)・
+`computer-engineering`(計算機工学)・`others`(その他)です。
 
 ## ローカルで確認
 

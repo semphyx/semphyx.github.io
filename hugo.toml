@@ -7,8 +7,8 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 
-# 記事・タグ・RSS は使わない
-disableKinds = ["section", "taxonomy", "term", "rss"]
+# タグ・RSS は使わない
+disableKinds = ["taxonomy", "term", "rss"]
 
 [minify]
   disableXML = true

@@ -13,6 +13,17 @@
         {{- end }}
       {{- end }}
     </ul>
+    {{- /* ノート: content/notes/ の分類フォルダから自動で並べる */ -}}
+    {{- with site.GetPage "/notes" }}
+      {{- $notesURL := .RelPermalink }}
+      <a class="nav-heading" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a>
+      <ul class="nav-list">
+        {{- range .Sections.ByWeight }}
+          {{- $url := .RelPermalink }}
+          <li><a href="{{ $url }}"{{ if hasPrefix $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+        {{- end }}
+      </ul>
+    {{- end }}
     {{- range site.Menus.main }}
       {{- if .HasChildren }}
       <p class="nav-heading">{{ .Name }}</p>

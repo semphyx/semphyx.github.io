@@ -1,5 +1,5 @@
-{{- /* front matter で math: true のページ(とホーム)だけ KaTeX を読み込む */ -}}
-{{ if or .IsHome .Params.math }}
+{{- /* ホーム・ノート・front matter で math: true のページだけ KaTeX を読み込む */ -}}
+{{ if or .IsHome (eq .Section "notes") .Params.math }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
   integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
