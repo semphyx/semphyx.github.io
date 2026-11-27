@@ -28,6 +28,24 @@ hugo new notes/math/fourier-series.md
 `math`(数学)・`physics`(物理)・`semiconductor`(半導体)・`numerical`(数値計算)・
 `computer-engineering`(計算機工学)・`others`(その他)です。
 
+## 講義ノート(章が続くテキスト)
+
+講義(テキスト)ごとにフォルダを作り、章を順番に並べます。
+
+```
+content/lectures/semiconductor-physics/_index.md      ← 講義名(title)と説明(summary)
+content/lectures/semiconductor-physics/01-crystal.md  ← weight: 1
+content/lectures/semiconductor-physics/02-band.md     ← weight: 2
+```
+
+新しい章は次のコマンドで作れます(`weight` に章の番号を入れ、`draft: false` で公開)。
+
+```bash
+hugo new lectures/semiconductor-physics/03-carrier.md
+```
+
+章は `weight` の順に「第 1 章」「第 2 章」…と番号が付き、前後の章へのリンクもこの順になります。
+
 ## 注記ボックス
 
 ノートの中で、次のように書くと色付きのボックスになります。

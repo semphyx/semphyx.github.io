@@ -1,12 +1,14 @@
 {{ define "main" }}
+{{ $doc := in (slice "notes" "lectures") .Section }}
 <article>
   <header class="page-head">
     {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
-    {{ if eq .Section "notes" }}
+    {{ if $doc }}
       {{ partial "crumb.html" . }}
     {{ end }}
+    {{ if eq .Section "lectures" }}{{ with partial "chapter-number.html" . }}<p class="chapter-no">第 {{ . }} 章</p>{{ end }}{{ end }}
     <h1 class="page-title">{{ .Title }}</h1>
-    {{ if eq .Section "notes" }}
+    {{ if $doc }}
       <p class="note-meta">
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
         {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}<span>更新 {{ .Lastmod.Format "2006-01-02" }}</span>{{ end }}
@@ -14,7 +16,7 @@
       {{ partial "tag-list.html" . }}
     {{ end }}
   </header>
-  {{ $toc := and (eq .Section "notes") (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
+  {{ $toc := and $doc (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
   <div class="note-body{{ if $toc }} has-toc{{ end }}">
     {{ if $toc }}
       <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
@@ -43,7 +45,7 @@
     {{ end }}
   {{ end }}
 
-  {{ if eq .Section "notes" }}
+  {{ if $doc }}
     {{ partial "note-pager.html" . }}
     {{ partial "comments.html" . }}
   {{ end }}

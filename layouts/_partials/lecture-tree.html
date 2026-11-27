@@ -1,0 +1,30 @@
+{{- /* サイドバーの講義ノート。講義名を並べ、読んでいる講義は章の一覧を開く */ -}}
+{{- $current := .current -}}
+{{- with site.GetPage "/lectures" }}
+{{- $url := .RelPermalink }}
+<details class="nav-tree" open>
+  <summary><a class="nav-tree-root" href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
+  {{- with .Sections.ByWeight }}
+  <ul class="tree">
+    {{- range . }}
+      {{- $curl := .RelPermalink }}
+      {{- $here := hasPrefix $current $curl }}
+      {{- if .RegularPages }}
+      <li>
+        <details{{ if $here }} open{{ end }}>
+          <summary><a href="{{ $curl }}"{{ if eq $current $curl }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
+          <ol class="tree chapter-tree">
+            {{- range $i, $p := .RegularPages.ByWeight }}
+            <li class="tree-item"><a href="{{ $p.RelPermalink }}"{{ if eq $current $p.RelPermalink }} aria-current="page"{{ end }}><span class="chapter-tree-no">{{ add $i 1 }}.</span>{{ $p.Title }}</a></li>
+            {{- end }}
+          </ol>
+        </details>
+      </li>
+      {{- else }}
+      <li class="tree-item"><a href="{{ $curl }}"{{ if eq $current $curl }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+      {{- end }}
+    {{- end }}
+  </ul>
+  {{- end }}
+</details>
+{{- end }}

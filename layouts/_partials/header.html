@@ -32,6 +32,7 @@
         {{- end }}
       </details>
     {{- end }}
+    {{ partial "lecture-tree.html" (dict "current" $current) }}
     {{- range site.Menus.main }}
       {{- if .HasChildren }}
       <p class="nav-heading">{{ .Name }}</p>

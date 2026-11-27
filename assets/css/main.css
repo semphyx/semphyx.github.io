@@ -353,6 +353,25 @@ article .page-head + .note-body, .note-body .toc + .prose { margin-top: 36px; }
 .tag-count { font-size: .75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .tree-extra { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--side-rule); }
 
+/* ---------- 講義ノート ---------- */
+.chapter-no { margin: 0 0 2px; font-size: .87rem; font-weight: 700; letter-spacing: .08em; color: var(--accent-text); }
+.lecture-intro { margin-top: 24px; }
+.course-list { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.course-list a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 18px 20px; border: 1px solid var(--rule); border-left: 3px solid var(--accent); color: var(--ink); background: none; transition: background-color .15s; }
+.course-list a:hover { background-color: var(--tint); }
+.course-title { font-family: var(--font-serif); font-weight: 700; font-size: 1.13rem; }
+.course-summary { font-size: .93rem; color: var(--ink-soft); }
+.course-count { margin-top: auto; padding-top: 6px; font-size: .87rem; color: var(--ink-soft); }
+.chapter-list { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.chapter-list > li { display: grid; grid-template-columns: 2.2em 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.chapter-list > li:first-child { padding-top: 0; }
+.chapter-num { font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; line-height: 1.3; color: var(--accent-text); text-align: right; font-variant-numeric: tabular-nums; }
+.start-link { margin: 20px 0 0; }
+.button-link { display: inline-block; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 2px; color: var(--accent-text); font-weight: 700; background: none; transition: background-color .15s; }
+.button-link:hover { background-color: var(--tint); }
+.chapter-tree .tree-item a { font-size: .9rem; line-height: 1.5; padding-top: 5px; padding-bottom: 5px; }
+.chapter-tree-no { flex: none; width: 1.6em; color: var(--side-text); opacity: .9; font-variant-numeric: tabular-nums; }
+
 /* ---------- コメント ---------- */
 .comments { margin-top: 80px; }
 .comments-note { margin: 0 0 16px; font-size: .87rem; color: var(--ink-soft); }
