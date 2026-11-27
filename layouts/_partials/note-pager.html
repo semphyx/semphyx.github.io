@@ -1,18 +1,20 @@
-{{- /* 同じ分類の中で、日付の古い順に前後のノートへのリンクを出す */ -}}
-{{- $pages := .CurrentSection.RegularPages.ByDate -}}
+{{- /* 前後のページへのリンク。ノートは同じ分類の中で日付の古い順、講義ノートは同じ講義の中で章の順 */ -}}
+{{- $lecture := eq .Section "lectures" -}}
+{{- $pages := cond $lecture .CurrentSection.RegularPages.ByWeight .CurrentSection.RegularPages.ByDate -}}
 {{- $prev := false -}}{{- $next := false -}}{{- $found := false -}}
-{{- range $pages -}}
-  {{- if $found -}}{{- if not $next }}{{ $next = . }}{{ end -}}
-  {{- else if eq .RelPermalink $.RelPermalink -}}{{- $found = true -}}
-  {{- else -}}{{- $prev = . -}}{{- end -}}
+{{- $prevNo := 0 -}}{{- $nextNo := 0 -}}
+{{- range $i, $p := $pages -}}
+  {{- if $found -}}{{- if not $next }}{{ $next = $p }}{{ $nextNo = add $i 1 }}{{ end -}}
+  {{- else if eq $p.RelPermalink $.RelPermalink -}}{{- $found = true -}}
+  {{- else -}}{{- $prev = $p -}}{{ $prevNo = add $i 1 }}{{- end -}}
 {{- end -}}
 {{- if or $prev $next }}
-<nav class="note-pager" aria-label="前後のノート">
+<nav class="note-pager" aria-label="前後のページ">
   <div class="pager-prev">
-    {{- with $prev }}<a href="{{ .RelPermalink }}"><span class="pager-label">← 前のノート</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
+    {{- with $prev }}<a href="{{ .RelPermalink }}"><span class="pager-label">← {{ if $lecture }}第 {{ $prevNo }} 章{{ else }}前のノート{{ end }}</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
   </div>
   <div class="pager-next">
-    {{- with $next }}<a href="{{ .RelPermalink }}"><span class="pager-label">次のノート →</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
+    {{- with $next }}<a href="{{ .RelPermalink }}"><span class="pager-label">{{ if $lecture }}第 {{ $nextNo }} 章{{ else }}次のノート{{ end }} →</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
   </div>
 </nav>
 {{- end }}

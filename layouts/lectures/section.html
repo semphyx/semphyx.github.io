@@ -1,0 +1,48 @@
+{{ define "main" }}
+<header class="page-head">
+  {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+  {{ partial "crumb.html" . }}
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+{{ with .Content }}<div class="prose lecture-intro">{{ . }}</div>{{ end }}
+
+{{ if eq .Parent.Kind "home" }}
+  {{/* 講義ノートのトップ:講義の一覧 */}}
+  {{ with .Sections.ByWeight }}
+  <ul class="course-list">
+    {{ range . }}
+      <li>
+        <a href="{{ .RelPermalink }}">
+          <span class="course-title">{{ .Title }}</span>
+          {{ with .Params.summary }}<span class="course-summary">{{ . }}</span>{{ end }}
+          <span class="course-count">全 {{ len .RegularPages }} 章</span>
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+  {{ else }}
+  <p class="empty">まだ講義ノートはありません。</p>
+  {{ end }}
+{{ else }}
+  {{/* 講義のページ:章立て */}}
+  <section class="section">
+    {{ partial "section-head.html" (dict "en" "Contents" "ja" "目次") }}
+    {{ with .RegularPages.ByWeight }}
+    <ol class="chapter-list">
+      {{ range $i, $p := . }}
+        <li>
+          <span class="chapter-num">{{ add $i 1 }}</span>
+          <div>
+            <a class="note-title" href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+            {{ with $p.Params.summary }}<p class="note-summary">{{ . }}</p>{{ end }}
+          </div>
+        </li>
+      {{ end }}
+    </ol>
+    {{ with index . 0 }}<p class="start-link"><a class="button-link" href="{{ .RelPermalink }}">第 1 章から読む →</a></p>{{ end }}
+    {{ else }}
+    <p class="empty">まだ章はありません。</p>
+    {{ end }}
+  </section>
+{{ end }}
+{{ end }}

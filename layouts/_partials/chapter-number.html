@@ -1,0 +1,6 @@
+{{- /* 講義ノートの章番号(同じ講義の中で weight 順に何番目か)を返す */ -}}
+{{- $n := 0 -}}
+{{- range $i, $p := .CurrentSection.RegularPages.ByWeight -}}
+  {{- if eq $p.RelPermalink $.RelPermalink }}{{ $n = add $i 1 }}{{ end -}}
+{{- end -}}
+{{- return $n -}}

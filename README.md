@@ -10,6 +10,7 @@
 | 名前・所属・研究分野・お知らせ・連絡先・外部ID | `content/_index.md`(front matter と本文) |
 | リンク集 | `content/links.md` の `groups` |
 | ノート | `content/notes/<分類>/*.md`(数式はそのまま使えます) |
+| ノートのタグ | ノートの front matter に `tags: ["pn接合", "Python"]` |
 | ノートの分類 | `content/notes/<分類>/_index.md`(`weight` の順にサイドバーへ並ぶ) |
 | ページの追加 | `content/*.md`(数式を使うページは front matter に `math: true`) |
 | メニュー・サイト名 | `hugo.toml` |
@@ -26,6 +27,24 @@ hugo new notes/math/fourier-series.md
 作られたファイルの `draft: true` を `false` にすると公開されます。分類のフォルダ名は
 `math`(数学)・`physics`(物理)・`semiconductor`(半導体)・`numerical`(数値計算)・
 `computer-engineering`(計算機工学)・`others`(その他)です。
+
+## 講義ノート(章が続くテキスト)
+
+講義(テキスト)ごとにフォルダを作り、章を順番に並べます。
+
+```
+content/lectures/semiconductor-physics/_index.md      ← 講義名(title)と説明(summary)
+content/lectures/semiconductor-physics/01-crystal.md  ← weight: 1
+content/lectures/semiconductor-physics/02-band.md     ← weight: 2
+```
+
+新しい章は次のコマンドで作れます(`weight` に章の番号を入れ、`draft: false` で公開)。
+
+```bash
+hugo new lectures/semiconductor-physics/03-carrier.md
+```
+
+章は `weight` の順に「第 1 章」「第 2 章」…と番号が付き、前後の章へのリンクもこの順になります。
 
 ## 注記ボックス
 

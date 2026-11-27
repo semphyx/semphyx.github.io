@@ -211,6 +211,13 @@ main.container { padding-top: 64px; padding-bottom: 80px; }
   :root:not([data-theme="light"]) .icon-moon { display: none; }
 }
 
+/* ---------- ステージングの帯 ---------- */
+.staging-banner {
+  padding: 6px 16px; text-align: center; font-size: .87rem; font-weight: 700;
+  color: var(--warn-text); background: var(--warn-bg); border-bottom: 1px solid var(--warn-line);
+}
+.staging-banner a { color: inherit; text-decoration: underline; background: none; }
+
 /* ---------- フッター ---------- */
 .site-footer { color: var(--ink-soft); font-size: .87rem; }
 .footer-row { position: relative; display: flex; justify-content: space-between; padding-top: 20px; padding-bottom: 32px; }
@@ -266,8 +273,8 @@ main.container { padding-top: 64px; padding-bottom: 80px; }
 .cat-count { margin-top: 10px; font-size: .87rem; color: var(--ink-soft); }
 
 .note-list { list-style: none; margin: 0; padding: 0; }
-.note-list li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-.note-list li:first-child { padding-top: 0; }
+.note-list > li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.note-list > li:first-child { padding-top: 0; }
 .note-title { font-weight: 700; font-size: 1.07rem; color: var(--ink); }
 .note-title:hover { color: var(--link); }
 .note-summary { margin: 4px 0 0; color: var(--ink-soft); font-size: .93rem; }
@@ -339,6 +346,38 @@ article .page-head + .note-body, .note-body .toc + .prose { margin-top: 36px; }
 .prose .highlight:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
 .copy-btn.is-done { color: var(--accent-text); opacity: 1; }
 @media (hover: none) { .copy-btn { opacity: 1; } }
+
+/* ---------- タグ ---------- */
+.tag-list, .tag-cloud { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; }
+.tag-cloud { margin-top: 0; gap: 8px 10px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 1px 10px;
+  font-size: .8rem; line-height: 1.7; color: var(--link);
+  border: 1px solid var(--rule); border-radius: 999px; background: none;
+  transition: background-color .15s, border-color .15s;
+}
+.tag:hover { background-color: var(--tint); border-color: var(--accent); }
+.tag-count { font-size: .75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.tree-extra { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--side-rule); }
+
+/* ---------- 講義ノート ---------- */
+.chapter-no { margin: 0 0 2px; font-size: .87rem; font-weight: 700; letter-spacing: .08em; color: var(--accent-text); }
+.lecture-intro { margin-top: 24px; }
+.course-list { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.course-list a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 18px 20px; border: 1px solid var(--rule); border-left: 3px solid var(--accent); color: var(--ink); background: none; transition: background-color .15s; }
+.course-list a:hover { background-color: var(--tint); }
+.course-title { font-family: var(--font-serif); font-weight: 700; font-size: 1.13rem; }
+.course-summary { font-size: .93rem; color: var(--ink-soft); }
+.course-count { margin-top: auto; padding-top: 6px; font-size: .87rem; color: var(--ink-soft); }
+.chapter-list { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.chapter-list > li { display: grid; grid-template-columns: 2.2em 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.chapter-list > li:first-child { padding-top: 0; }
+.chapter-num { font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; line-height: 1.3; color: var(--accent-text); text-align: right; font-variant-numeric: tabular-nums; }
+.start-link { margin: 20px 0 0; }
+.button-link { display: inline-block; padding: 6px 16px; border: 1px solid var(--accent); border-radius: 2px; color: var(--accent-text); font-weight: 700; background: none; transition: background-color .15s; }
+.button-link:hover { background-color: var(--tint); }
+.chapter-tree .tree-item a { font-size: .9rem; line-height: 1.5; padding-top: 5px; padding-bottom: 5px; }
+.chapter-tree-no { flex: none; width: 1.6em; color: var(--side-text); opacity: .9; font-variant-numeric: tabular-nums; }
 
 /* ---------- コメント ---------- */
 .comments { margin-top: 80px; }

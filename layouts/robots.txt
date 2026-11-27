@@ -1,0 +1,6 @@
+User-agent: *
+{{- if eq hugo.Environment "staging" }}
+Disallow: /
+{{- else }}
+Disallow: /staging/
+{{- end }}

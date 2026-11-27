@@ -1,9 +1,14 @@
 name: Deploy Hugo site to Pages
 
+# main(本番)と staging(ステージング)のどちらに push されても、
+# 両方をビルドして 1 つのサイトとして公開する。
+#   本番         https://semphyx.github.io/          ← main
+#   ステージング https://semphyx.github.io/staging/  ← staging
 on:
   push:
     branches:
       - main
+      - staging
   workflow_dispatch:
 
 permissions:
@@ -24,31 +29,58 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.159.0
+      HUGO_CACHEDIR: ${{ github.workspace }}/.hugo_cache
+      TZ: Asia/Tokyo
     steps:
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
+          ref: main
+          path: site-main
+          fetch-depth: 0
+
+      - name: Check whether the staging branch exists
+        id: staging
+        run: |
+          if git ls-remote --exit-code --heads "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" staging >/dev/null; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout staging
+        if: steps.staging.outputs.exists == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: staging
+          path: site-staging
           fetch-depth: 0
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Hugo
-        env:
-          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
-          HUGO_ENVIRONMENT: production
-          TZ: Asia/Tokyo
+      - name: Build production (main)
         run: |
-          hugo \
-            --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+          hugo --source site-main \
+            --gc --minify \
+            --environment production \
+            --baseURL "${{ steps.pages.outputs.base_url }}/" \
+            --destination "${{ github.workspace }}/public"
+
+      - name: Build staging (staging)
+        if: steps.staging.outputs.exists == 'true'
+        run: |
+          hugo --source site-staging \
+            --gc --minify \
+            --environment staging \
+            --baseURL "${{ steps.pages.outputs.base_url }}/staging/" \
+            --destination "${{ github.workspace }}/public/staging"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

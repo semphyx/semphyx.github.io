@@ -1,7 +1,7 @@
 {{- $current := .RelPermalink -}}
 <aside class="sidebar">
   <div class="sidebar-top">
-    <a class="site-title" href="{{ "/" | relURL }}" aria-label="{{ site.Title }}">
+    <a class="site-title" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}">
       {{- with site.Params.titleMain -}}
         {{ with site.Params.titleSub }}<span class="site-title-sub">{{ . }}</span>{{ end }}<span class="site-title-main">{{ . }}</span>
       {{- else -}}
@@ -25,8 +25,14 @@
       <details class="nav-tree" open>
         <summary><a class="nav-tree-root" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
         {{ partial "nav-tree.html" (dict "section" . "current" $current) }}
+        {{- with site.GetPage "/tags" }}
+        <ul class="tree tree-extra">
+          <li class="tree-item"><a href="{{ .RelPermalink }}"{{ if hasPrefix $current .RelPermalink }} aria-current="page"{{ end }}># タグ</a></li>
+        </ul>
+        {{- end }}
       </details>
     {{- end }}
+    {{ partial "lecture-tree.html" (dict "current" $current) }}
     {{- range site.Menus.main }}
       {{- if .HasChildren }}
       <p class="nav-heading">{{ .Name }}</p>
