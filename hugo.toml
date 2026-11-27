@@ -1,6 +1,6 @@
 baseURL = 'https://semphyx.github.io/'
 languageCode = 'ja'
-title = 'semphyx'
+title = '半導体の余白ノート'
 
 enableRobotsTXT = true
 buildDrafts = false
@@ -16,7 +16,10 @@ disableKinds = ["taxonomy", "term", "rss"]
 
 [params]
   description = "半導体物理や数学などの学習ノートを発信しています"
-  author = "semphyx"
+  author = "半導体の余白ノート"
+  # サイドバーの題字(上段は小さく、下段は大きく表示)
+  titleSub = "半導体の"
+  titleMain = "余白ノート"
 
 [markup]
   [markup.goldmark]
