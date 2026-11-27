@@ -18,10 +18,4 @@ groups:
       - name: "Google Scholar"
         url: "https://scholar.google.co.jp/citations?user=9K_Ui8YAAAAJ&hl=ja"
 
-  - title: "所属機関"
-    en: "Affiliation"
-    items:
-      - name: "TODO: 所属機関名"
-        url: ""
-
 ---

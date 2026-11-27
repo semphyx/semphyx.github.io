@@ -1,21 +1,7 @@
 {{ define "main" }}
 {{ $p := .Params }}
 
-<header class="profile">
-  {{ with $p.name_en }}<p class="eyebrow">{{ . }}</p>{{ end }}
-  <h1 class="profile-name">{{ $p.name | default site.Title }}</h1>
-  {{ with $p.affiliations }}
-  <ul class="affil">
-    {{ range . }}
-      <li>
-        {{ with .position }}<span class="affil-position">{{ . }}</span>{{ end }}
-        {{ with .department }}<span>{{ . }}</span>{{ end }}
-        {{ with .organization }}<span class="affil-org">{{ . }}</span>{{ end }}
-      </li>
-    {{ end }}
-  </ul>
-  {{ end }}
-</header>
+<h1 class="visually-hidden">{{ site.Title }}</h1>
 
 <section class="section">
   {{ partial "section-head.html" (dict "en" "Research" "ja" "研究分野") }}
@@ -51,7 +37,11 @@
 {{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
 {{ if or $contact $ids }}
 <section class="section">
-  {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
+  {{ if $contact }}
+    {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
+  {{ else }}
+    {{ partial "section-head.html" (dict "en" "Profiles" "ja" "外部ID") }}
+  {{ end }}
   <dl class="kv">
     {{ range $contact }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
     {{ range $ids }}<dt>{{ .name }}</dt><dd><a class="mono-link" href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></dd>{{ end }}
