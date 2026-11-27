@@ -1,0 +1,7 @@
+{{- /* 位置表示。ホームを除く親をすべて並べる(自分自身はすぐ下の見出しに出るので含めない) */ -}}
+{{- $parents := where .Ancestors.Reverse "Kind" "!=" "home" -}}
+{{- with $parents }}
+<p class="crumb">
+  {{- range $i, $p := . }}{{ if $i }} / {{ end }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end -}}
+</p>
+{{- end }}

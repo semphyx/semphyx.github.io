@@ -1,0 +1,31 @@
+{{- /* サイドバーのノートのツリー。分類(フォルダ)だけを並べ、ノートは分類ページの一覧に出す */ -}}
+{{- $current := .current -}}
+<ul class="tree">
+  {{- range .section.Sections.ByWeight }}
+    {{- $url := .RelPermalink }}
+    {{- $here := hasPrefix $current $url }}
+    {{- /* いま見ているページがこの分類の小分類の中にあるか */ -}}
+    {{- $childHere := false }}
+    {{- range .Sections }}{{ if hasPrefix $current .RelPermalink }}{{ $childHere = true }}{{ end }}{{ end }}
+    {{- $mark := and $here (not $childHere) }}
+    {{- $count := len .RegularPagesRecursive }}
+    {{- if .Sections }}
+    <li>
+      <details{{ if $here }} open{{ end }}>
+        <summary>
+          <a href="{{ $url }}"{{ if $mark }} aria-current="page"{{ end }}>{{ .Title }}</a>
+          {{ if $count }}<span class="tree-count">{{ $count }}</span>{{ end }}
+        </summary>
+        {{ partial "nav-tree.html" (dict "section" . "current" $current) }}
+      </details>
+    </li>
+    {{- else }}
+    <li class="tree-item">
+      <a href="{{ $url }}"{{ if $mark }} aria-current="page"{{ end }}>
+        <span>{{ .Title }}</span>
+        {{ if $count }}<span class="tree-count">{{ $count }}</span>{{ end }}
+      </a>
+    </li>
+    {{- end }}
+  {{- end }}
+</ul>

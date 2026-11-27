@@ -19,16 +19,13 @@
         {{- end }}
       {{- end }}
     </ul>
-    {{- /* ノート: content/notes/ の分類フォルダから自動で並べる */ -}}
+    {{- /* ノート: content/notes/ のフォルダ構成をそのまま開閉式のツリーで並べる */ -}}
     {{- with site.GetPage "/notes" }}
       {{- $notesURL := .RelPermalink }}
-      <a class="nav-heading" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a>
-      <ul class="nav-list">
-        {{- range .Sections.ByWeight }}
-          {{- $url := .RelPermalink }}
-          <li><a href="{{ $url }}"{{ if hasPrefix $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
-        {{- end }}
-      </ul>
+      <details class="nav-tree" open>
+        <summary><a class="nav-tree-root" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
+        {{ partial "nav-tree.html" (dict "section" . "current" $current) }}
+      </details>
     {{- end }}
     {{- range site.Menus.main }}
       {{- if .HasChildren }}

@@ -1,25 +1,30 @@
 {{ define "main" }}
 <header class="page-head">
   {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
+  {{ partial "crumb.html" . }}
   <h1 class="page-title">{{ .Title }}</h1>
-  {{ with .Parent }}{{ if ne .Kind "home" }}<p class="crumb"><a href="{{ .RelPermalink }}">{{ .Title }}</a> / {{ $.Title }}</p>{{ end }}{{ end }}
 </header>
 {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 
-{{ if .Sections }}
-  {{/* ノートのトップ:分類の一覧 */}}
+{{ $isRoot := eq .Parent.Kind "home" }}
+
+{{ with .Sections }}
+  {{/* 分類・小分類のマス */}}
   <ul class="cat-list">
-    {{ range .Sections.ByWeight }}
+    {{ range .ByWeight }}
       <li>
         <a href="{{ .RelPermalink }}">
           <span class="cat-name">{{ .Title }}</span>
           {{ with .Params.eyebrow }}<span class="cat-en">{{ . }}</span>{{ end }}
-          <span class="cat-count">{{ len .RegularPages }} 件</span>
+          <span class="cat-count">{{ len .RegularPagesRecursive }} 件</span>
         </a>
       </li>
     {{ end }}
   </ul>
+{{ end }}
 
+{{ if $isRoot }}
+  {{/* ノートのトップ:新しいノートを 5 件 */}}
   {{ with first 5 .RegularPagesRecursive.ByDate.Reverse }}
   <section class="section">
     {{ partial "section-head.html" (dict "en" "Recent" "ja" "新しいノート") }}
@@ -27,10 +32,11 @@
   </section>
   {{ end }}
 {{ else }}
-  {{/* 分類ページ:その分類のノート一覧 */}}
+  {{/* 分類ページ:この分類(小分類を含む)のノートをすべて新しい順に */}}
   <section class="section">
-    {{ with .RegularPages.ByDate.Reverse }}
-      {{ partial "note-list.html" (dict "pages" . "showCat" false) }}
+    {{ if .Sections }}{{ partial "section-head.html" (dict "en" "All notes" "ja" "ノート一覧") }}{{ end }}
+    {{ with .RegularPagesRecursive.ByDate.Reverse }}
+      {{ partial "note-list.html" (dict "pages" . "showCat" (gt (len $.Sections) 0)) }}
     {{ else }}
       <p class="empty">まだノートはありません。</p>
     {{ end }}
