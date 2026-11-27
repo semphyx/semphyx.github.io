@@ -13,11 +13,13 @@
       </p>
     {{ end }}
   </header>
-  {{ if and (eq .Section "notes") (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
-    <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
-  {{ end }}
-
-  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ $toc := and (eq .Section "notes") (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
+  <div class="note-body{{ if $toc }} has-toc{{ end }}">
+    {{ if $toc }}
+      <details class="toc" open><summary>目次</summary>{{ .TableOfContents }}</details>
+    {{ end }}
+    {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  </div>
 
   {{/* リンクページ用: front matter の groups を描画 */}}
   {{ range .Params.groups }}
@@ -40,6 +42,9 @@
     {{ end }}
   {{ end }}
 
-  {{ if eq .Section "notes" }}{{ partial "comments.html" . }}{{ end }}
+  {{ if eq .Section "notes" }}
+    {{ partial "note-pager.html" . }}
+    {{ partial "comments.html" . }}
+  {{ end }}
 </article>
 {{ end }}

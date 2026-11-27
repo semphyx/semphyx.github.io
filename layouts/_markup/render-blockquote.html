@@ -1,0 +1,13 @@
+{{- /* > [!TIP] ポイント / > [!NOTE] 補足 / > [!WARNING] 注意。普通の引用はそのまま */ -}}
+{{- if eq .Type "alert" -}}
+  {{- $kind := index (dict "tip" "tip" "important" "tip" "note" "note" "warning" "warn" "caution" "warn") .AlertType | default "note" -}}
+  {{- $label := index (dict "tip" "ポイント" "note" "補足" "warn" "注意") $kind -}}
+<div class="callout callout-{{ $kind }}">
+  <p class="callout-label">{{ .AlertTitle | default $label }}</p>
+  {{ .Text }}
+</div>
+{{- else -}}
+<blockquote>
+  {{ .Text }}
+</blockquote>
+{{- end -}}

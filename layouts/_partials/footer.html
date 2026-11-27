@@ -21,5 +21,56 @@
       var open = sidebar.classList.toggle("is-open");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
+
+    // 目次:いま読んでいる節を強調する
+    var toc = document.querySelector(".toc");
+    if (toc) {
+      var links = {};
+      toc.querySelectorAll("a[href^='#']").forEach(function (a) { links[decodeURIComponent(a.getAttribute("href").slice(1))] = a; });
+      var heads = Array.prototype.filter.call(document.querySelectorAll(".prose h2[id], .prose h3[id]"), function (h) { return links[h.id]; });
+      var current = null;
+      var setActive = function (id) {
+        if (current) current.classList.remove("is-active");
+        current = links[id] || null;
+        if (current) current.classList.add("is-active");
+      };
+      var onScroll = function () {
+        var id = heads.length ? heads[0].id : null;
+        heads.forEach(function (h) { if (h.getBoundingClientRect().top < 120) id = h.id; });
+        setActive(id);
+      };
+      var ticking = false;
+      window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { onScroll(); ticking = false; });
+      }, { passive: true });
+      onScroll();
+    }
+
+    // コードブロックにコピーボタンを付ける
+    document.querySelectorAll(".prose pre").forEach(function (pre) {
+      var host = pre.parentElement;
+      if (!host.classList.contains("highlight")) {
+        host = document.createElement("div");
+        host.className = "highlight";
+        pre.parentNode.insertBefore(host, pre);
+        host.appendChild(pre);
+      }
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "copy-btn";
+      b.textContent = "コピー";
+      b.addEventListener("click", function () {
+        var code = pre.querySelector("code") || pre;
+        var done = function () {
+          b.textContent = "コピーしました";
+          b.classList.add("is-done");
+          setTimeout(function () { b.textContent = "コピー"; b.classList.remove("is-done"); }, 1500);
+        };
+        if (navigator.clipboard) navigator.clipboard.writeText(code.innerText).then(done);
+      });
+      host.appendChild(b);
+    });
   })();
 </script>
