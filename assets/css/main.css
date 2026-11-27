@@ -211,6 +211,13 @@ main.container { padding-top: 64px; padding-bottom: 80px; }
   :root:not([data-theme="light"]) .icon-moon { display: none; }
 }
 
+/* ---------- ステージングの帯 ---------- */
+.staging-banner {
+  padding: 6px 16px; text-align: center; font-size: .87rem; font-weight: 700;
+  color: var(--warn-text); background: var(--warn-bg); border-bottom: 1px solid var(--warn-line);
+}
+.staging-banner a { color: inherit; text-decoration: underline; background: none; }
+
 /* ---------- フッター ---------- */
 .site-footer { color: var(--ink-soft); font-size: .87rem; }
 .footer-row { position: relative; display: flex; justify-content: space-between; padding-top: 20px; padding-bottom: 32px; }

@@ -2,6 +2,9 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
+  {{- if eq hugo.Environment "staging" }}
+  <meta name="robots" content="noindex, nofollow">
+  {{- end }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} - {{ site.Title }}{{ end }}</title>
   <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="48x48">
@@ -30,6 +33,9 @@
   <div class="layout">
     {{ partial "header.html" . }}
     <div class="content">
+      {{- if eq hugo.Environment "staging" }}
+      <div class="staging-banner" role="note">ステージング環境です(本番には未公開の内容を含みます)。本番は <a href="https://semphyx.github.io/">semphyx.github.io</a></div>
+      {{- end }}
       <main class="container">
         {{ block "main" . }}{{ end }}
       </main>

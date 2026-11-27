@@ -1,6 +1,6 @@
 {{- /* ノートのコメント欄(giscus)。repoId と categoryId が設定されているときだけ表示する */ -}}
 {{- with site.Params.giscus }}
-{{- if and .repoId .categoryId }}
+{{- if and .repoId .categoryId (ne hugo.Environment "staging") }}
 <section class="section comments">
   {{ partial "section-head.html" (dict "en" "Comments" "ja" "コメント") }}
   <p class="comments-note">コメントには GitHub アカウントが必要です。数式(<code>$...$</code>)や Markdown が使えます。</p>

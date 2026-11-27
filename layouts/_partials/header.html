@@ -1,7 +1,7 @@
 {{- $current := .RelPermalink -}}
 <aside class="sidebar">
   <div class="sidebar-top">
-    <a class="site-title" href="{{ "/" | relURL }}" aria-label="{{ site.Title }}">
+    <a class="site-title" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}">
       {{- with site.Params.titleMain -}}
         {{ with site.Params.titleSub }}<span class="site-title-sub">{{ . }}</span>{{ end }}<span class="site-title-main">{{ . }}</span>
       {{- else -}}
