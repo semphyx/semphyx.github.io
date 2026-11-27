@@ -84,8 +84,8 @@ from plot_utils import new_figure    # 記事の plot_utils.py
 apply_style()             # 論文用の rcParams を一括で設定
 fig, ax = new_figure()    # 6.4 × 4.8 インチ、200 dpi、背景は白(軸の領域だけ透明)
 # vg: ゲート電圧の配列、drain_current(): I_D のモデル(figure_example.py と同じ)
-ax.semilogy(vg, drain_current(vg, 0.1), label="$V_D = 0.1$ V")
-ax.semilogy(vg, drain_current(vg, 10.0), label="$V_D = 10$ V")
+ax.semilogy(vg, drain_current(vg, 0.1), "-", label="$V_D = 0.1$ V")    # 実線
+ax.semilogy(vg, drain_current(vg, 10.0), "--", label="$V_D = 10$ V")   # 破線
 ax.set_xlabel("Gate voltage (V)")
 ax.set_ylabel("Drain current (A)")
 ax.legend()
@@ -250,15 +250,20 @@ plt.rcParams.update({
 # savefig.bbox="tight" は使わない(余白が削られて図の幅が 89 mm より小さくなる)。
 # 余白の調整は layout="constrained" に任せる
 OKABE_ITO = ["#0072B2", "#D55E00", "#009E73", "#E69F00", "#CC79A7"]
+# 白黒印刷でも区別できるように、色に加えて線種と記号も系列ごとに変える
+LINESTYLES = ["-", "--", "-.", ":", (0, (5, 1, 1, 1, 1, 1))]
+MARKERS = ["o", "s", "^", "v", "D"]
 C_LEFT, C_RIGHT = "#0072B2", "#D55E00"   # 主軸と副軸の色
 
 # 3) 仕上がりの大きさで図を作る(1 段幅 89 mm、上下 2 段)
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(89 * MM, 100 * MM),
                                layout="constrained")
 
-# (a) 出力特性:ゲート電圧ごとに色を変える
-for v, c in zip(vg_steps, OKABE_ITO, strict=True):
-    ax1.plot(vd, drain_current(v, vd) * 1e6, color=c, label=f"{v} V")
+# (a) 出力特性:ゲート電圧ごとに色・線種・記号を変える
+for v, c, ls, mk in zip(vg_steps, OKABE_ITO, LINESTYLES, MARKERS, strict=True):
+    ax1.plot(vd, drain_current(v, vd) * 1e6, color=c, linestyle=ls,
+             marker=mk, markevery=(10, 25), markerfacecolor="none",
+             markeredgewidth=0.7, label=f"{v} V")
 ax1.set_xlabel(r"Drain voltage $V_D$ (V)")
 ax1.set_ylabel(r"Drain current $I_D$ ($\mu$A)")
 ax1.set_xlim(0, 10)
@@ -312,6 +317,7 @@ fig.savefig("figure1.png", dpi=600)
 ポイントは次の 5 つです。
 
 - **大きさは仕上がりで決める。** `figsize` をミリメートルから換算して指定し、文字サイズ・線の太さもその大きさでの値にします。あとから縮小しないので、文字が規定より小さくなりません。
+- **白黒で印刷しても区別できるようにする。** 色だけに頼らず、(a) は線種(実線・破線・一点鎖線・点線)と白抜きの記号(○・□・△・▽・◇)、(b) は記号の形(○ と □)と近似直線の破線で系列を区別しています。記号は `markevery` で数点おきに置くと、線が見にくくなりません。
 - **色覚の多様性に配慮した色を使う。** 配色には、色覚の多様性に配慮して選ばれた Okabe–Ito のパレット(岡部正隆・伊藤啓「カラーユニバーサルデザイン」)を使っています。
 - **副軸は「どちらの軸で読むか」を色で示す。** 系列の色と、その軸のラベル・目盛り・枠線の色をそろえます。さらに記号の形(○ と □)も変えておくと、白黒印刷でも区別できます。
 - **副軸と `apply_style()` の目盛りを両立させる。** `apply_style()` は四辺に目盛りを付けるため、そのまま `twinx()` を使うと右側で主軸と副軸の目盛りが重なります。主軸の右目盛りと副軸の左目盛りを消してから描きます。凡例は `combine_twinx_legend()` で 1 つにまとめます。

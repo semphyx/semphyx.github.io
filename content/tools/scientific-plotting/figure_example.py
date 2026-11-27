@@ -79,14 +79,19 @@ plt.rcParams.update({
 })
 # savefig.bbox="tight" は使わない(余白が削られて図の幅が 89 mm より小さくなる)
 OKABE_ITO = ["#0072B2", "#D55E00", "#009E73", "#E69F00", "#CC79A7"]
+# 白黒印刷でも区別できるように、色に加えて線種と記号も系列ごとに変える
+LINESTYLES = ["-", "--", "-.", ":", (0, (5, 1, 1, 1, 1, 1))]
+MARKERS = ["o", "s", "^", "v", "D"]
 C_LEFT, C_RIGHT = "#0072B2", "#D55E00"   # 主軸と副軸の色
 
 # ---------------- 描画 ----------------
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(89 * MM, 100 * MM), layout="constrained")
 
-# (a) 出力特性:ゲート電圧ごとに色を変える
-for v, c in zip(vg_steps, OKABE_ITO, strict=True):
-    ax1.plot(vd, drain_current(v, vd) * 1e6, color=c, label=f"{v} V")
+# (a) 出力特性:ゲート電圧ごとに色・線種・記号を変える
+for v, c, ls, mk in zip(vg_steps, OKABE_ITO, LINESTYLES, MARKERS, strict=True):
+    ax1.plot(vd, drain_current(v, vd) * 1e6, color=c, linestyle=ls,
+             marker=mk, markevery=(10, 25), markerfacecolor="none",
+             markeredgewidth=0.7, label=f"{v} V")
 ax1.set_xlabel(r"Drain voltage $V_D$ (V)")
 ax1.set_ylabel(r"Drain current $I_D$ ($\mu$A)")
 ax1.set_xlim(0, 10)
