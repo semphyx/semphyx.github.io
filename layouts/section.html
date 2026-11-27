@@ -2,7 +2,7 @@
 <header class="page-head">
   {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
   <h1 class="page-title">{{ .Title }}</h1>
-  {{ with .Parent }}{{ if ne .Kind "home" }}<p class="crumb"><a href="{{ .RelPermalink }}">{{ .Title }}</a> / {{ $.Title }}</p>{{ end }}{{ end }}
+  {{ partial "crumb.html" . }}
 </header>
 {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
 

@@ -127,6 +127,39 @@ main.container { padding-top: 72px; padding-bottom: 80px; }
   font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
 }
 
+/* ノートのツリー */
+.nav-tree { margin: 0 0 28px; }
+.nav-tree summary, .tree summary { list-style: none; cursor: pointer; display: flex; align-items: center; }
+.nav-tree summary::-webkit-details-marker, .tree summary::-webkit-details-marker { display: none; }
+.nav-tree > summary { padding: 0 28px 6px; }
+.nav-tree > summary::before, .tree summary::before {
+  content: ""; flex: none; width: 0; height: 0; margin-right: 8px;
+  border-left: 5px solid var(--side-text); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  transition: transform .15s;
+}
+.nav-tree[open] > summary::before, .tree details[open] > summary::before { transform: rotate(90deg); }
+.nav-tree-root {
+  font-size: .8rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); background: none;
+}
+.nav-tree-root[aria-current="page"] { text-decoration: underline; text-underline-offset: 3px; }
+.tree { list-style: none; margin: 0; padding: 0; }
+.tree .tree { padding-left: 14px; }
+.tree summary { position: relative; padding: 6px 28px 6px 40px; }
+.tree summary::before { position: absolute; left: 28px; }
+.tree summary:hover, .tree-leaf a:hover, .tree-empty a:hover { background-color: var(--side-hover); }
+.tree summary a, .tree-empty a, .tree-leaf a { color: var(--side-text); background: none; }
+.tree summary a { flex: 1; min-width: 0; }
+.tree-count { flex: none; margin-left: 8px; font-size: .75rem; color: var(--side-text); opacity: .75; font-variant-numeric: tabular-nums; }
+.tree-empty a { display: block; padding: 6px 28px 6px 40px; }
+.tree-leaf a {
+  display: block; position: relative; padding: 4px 20px 4px 40px; font-size: .86rem; line-height: 1.5;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.tree a[aria-current="page"] { color: var(--side-strong); font-weight: 700; }
+.tree-leaf a[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: var(--accent);
+}
+
 .sidebar-bottom { padding: 0 28px; }
 .theme-toggle {
   font-family: var(--font-sans); font-size: .8rem; letter-spacing: .08em;
@@ -254,6 +287,11 @@ article .page-head + .prose, article .toc + .prose { margin-top: 36px; }
   .nav-list { margin-bottom: 12px; }
   .nav-list a { padding: 9px 20px; }
   .nav-heading { padding: 0 20px; }
+  .nav-tree > summary { padding: 0 20px 6px; }
+  .tree summary { padding-left: 32px; padding-right: 20px; }
+  .tree summary::before { left: 20px; }
+  .tree-empty a { padding-left: 32px; }
+  .tree-leaf a { padding-left: 32px; }
   .cat-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cat-list a { padding: 14px 14px; }
   .cat-en { font-size: .7rem; letter-spacing: .04em; }

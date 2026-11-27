@@ -1,0 +1,24 @@
+{{- /* セクション(分類)の中身をツリーで描画する。小分類があれば再帰的に入れ子にする */ -}}
+{{- $current := .current -}}
+<ul class="tree">
+  {{- range .section.Sections.ByWeight }}
+    {{- $url := .RelPermalink }}
+    {{- $here := hasPrefix $current $url }}
+    {{- if or .Sections .RegularPages }}
+    <li>
+      <details{{ if $here }} open{{ end }}>
+        <summary>
+          <a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a>
+          <span class="tree-count">{{ len .RegularPagesRecursive }}</span>
+        </summary>
+        {{ partial "nav-tree.html" (dict "section" . "current" $current) }}
+      </details>
+    </li>
+    {{- else }}
+    <li class="tree-empty"><a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+    {{- end }}
+  {{- end }}
+  {{- range .section.RegularPages }}
+    <li class="tree-leaf"><a href="{{ .RelPermalink }}"{{ if eq $current .RelPermalink }} aria-current="page"{{ end }} title="{{ .Title }}">{{ .Title }}</a></li>
+  {{- end }}
+</ul>

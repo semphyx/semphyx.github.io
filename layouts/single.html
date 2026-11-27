@@ -3,7 +3,7 @@
   <header class="page-head">
     {{ with .Params.eyebrow }}<p class="eyebrow">{{ . }}</p>{{ end }}
     {{ if eq .Section "notes" }}
-      <p class="crumb"><a href="{{ (site.GetPage "/notes").RelPermalink }}">ノート</a> / <a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a></p>
+      {{ partial "crumb.html" . }}
     {{ end }}
     <h1 class="page-title">{{ .Title }}</h1>
     {{ if eq .Section "notes" }}
