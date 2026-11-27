@@ -1,14 +1,19 @@
 baseURL = 'https://semphyx.github.io/'
 languageCode = 'ja'
 title = '半導体の余白ノート'
+# タグ名などを自動で大文字にしない(pn接合 → Pn接合 にならないように)
+titleCaseStyle = 'none'
 
 enableRobotsTXT = true
 buildDrafts = false
 buildFuture = false
 buildExpired = false
 
-# タグ・RSS は使わない
-disableKinds = ["taxonomy", "term", "rss"]
+# RSS は使わない(タグはノートで使う)
+disableKinds = ["rss"]
+
+[taxonomies]
+  tag = "tags"
 
 [minify]
   disableXML = true

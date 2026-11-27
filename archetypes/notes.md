@@ -3,6 +3,7 @@ title: "{{ replace .File.ContentBaseName "-" " " }}"
 date: {{ .Date }}
 draft: true
 summary: ""   # 一覧に出す 1〜2 行の説明
+tags: []      # 例: ["pn接合", "空乏層"]
 ---
 
 ## はじめに

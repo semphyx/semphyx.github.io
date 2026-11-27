@@ -266,8 +266,8 @@ main.container { padding-top: 64px; padding-bottom: 80px; }
 .cat-count { margin-top: 10px; font-size: .87rem; color: var(--ink-soft); }
 
 .note-list { list-style: none; margin: 0; padding: 0; }
-.note-list li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-.note-list li:first-child { padding-top: 0; }
+.note-list > li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.note-list > li:first-child { padding-top: 0; }
 .note-title { font-weight: 700; font-size: 1.07rem; color: var(--ink); }
 .note-title:hover { color: var(--link); }
 .note-summary { margin: 4px 0 0; color: var(--ink-soft); font-size: .93rem; }
@@ -339,6 +339,19 @@ article .page-head + .note-body, .note-body .toc + .prose { margin-top: 36px; }
 .prose .highlight:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
 .copy-btn.is-done { color: var(--accent-text); opacity: 1; }
 @media (hover: none) { .copy-btn { opacity: 1; } }
+
+/* ---------- タグ ---------- */
+.tag-list, .tag-cloud { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; }
+.tag-cloud { margin-top: 0; gap: 8px 10px; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 1px 10px;
+  font-size: .8rem; line-height: 1.7; color: var(--link);
+  border: 1px solid var(--rule); border-radius: 999px; background: none;
+  transition: background-color .15s, border-color .15s;
+}
+.tag:hover { background-color: var(--tint); border-color: var(--accent); }
+.tag-count { font-size: .75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.tree-extra { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--side-rule); }
 
 /* ---------- コメント ---------- */
 .comments { margin-top: 80px; }

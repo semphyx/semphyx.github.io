@@ -10,6 +10,7 @@
 | 名前・所属・研究分野・お知らせ・連絡先・外部ID | `content/_index.md`(front matter と本文) |
 | リンク集 | `content/links.md` の `groups` |
 | ノート | `content/notes/<分類>/*.md`(数式はそのまま使えます) |
+| ノートのタグ | ノートの front matter に `tags: ["pn接合", "Python"]` |
 | ノートの分類 | `content/notes/<分類>/_index.md`(`weight` の順にサイドバーへ並ぶ) |
 | ページの追加 | `content/*.md`(数式を使うページは front matter に `math: true`) |
 | メニュー・サイト名 | `hugo.toml` |

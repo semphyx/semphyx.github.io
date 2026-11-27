@@ -24,6 +24,18 @@
 {{ end }}
 
 {{ if $isRoot }}
+  {{/* ノートのトップ:タグ一覧 */}}
+  {{ with site.Taxonomies.tags }}
+  <section class="section">
+    {{ partial "section-head.html" (dict "en" "Tags" "ja" "タグ") }}
+    <ul class="tag-cloud">
+      {{ range .ByCount }}
+        <li><a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.LinkTitle }}<span class="tag-count">{{ .Count }}</span></a></li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
   {{/* ノートのトップ:新しいノートを 5 件 */}}
   {{ with first 5 .RegularPagesRecursive.ByDate.Reverse }}
   <section class="section">

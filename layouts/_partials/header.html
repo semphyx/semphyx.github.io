@@ -25,6 +25,11 @@
       <details class="nav-tree" open>
         <summary><a class="nav-tree-root" href="{{ $notesURL }}"{{ if eq $current $notesURL }} aria-current="page"{{ end }}>{{ .Title }}</a></summary>
         {{ partial "nav-tree.html" (dict "section" . "current" $current) }}
+        {{- with site.GetPage "/tags" }}
+        <ul class="tree tree-extra">
+          <li class="tree-item"><a href="{{ .RelPermalink }}"{{ if hasPrefix $current .RelPermalink }} aria-current="page"{{ end }}># タグ</a></li>
+        </ul>
+        {{- end }}
       </details>
     {{- end }}
     {{- range site.Menus.main }}

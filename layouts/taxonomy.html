@@ -1,0 +1,15 @@
+{{ define "main" }}
+<header class="page-head">
+  <p class="eyebrow">Tags</p>
+  <h1 class="page-title">タグ</h1>
+</header>
+{{ with .Pages.ByTitle }}
+<ul class="tag-cloud">
+  {{ range . }}
+    <li><a class="tag" href="{{ .RelPermalink }}">#{{ .LinkTitle }}<span class="tag-count">{{ len .Pages }}</span></a></li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="empty">まだタグはありません。</p>
+{{ end }}
+{{ end }}

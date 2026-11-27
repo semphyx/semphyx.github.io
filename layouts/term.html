@@ -1,0 +1,10 @@
+{{ define "main" }}
+<header class="page-head">
+  <p class="crumb"><a href="{{ (site.GetPage "/notes").RelPermalink }}">ノート</a> / <a href="{{ .Parent.RelPermalink }}">タグ</a></p>
+  <h1 class="page-title">#{{ .Title }}</h1>
+  <p class="note-meta"><span>{{ len .Pages }} 件のノート</span></p>
+</header>
+<section class="section">
+  {{ partial "note-list.html" (dict "pages" .Pages.ByDate.Reverse "showCat" true) }}
+</section>
+{{ end }}

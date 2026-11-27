@@ -11,6 +11,7 @@
         <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
         {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}<span>更新 {{ .Lastmod.Format "2006-01-02" }}</span>{{ end }}
       </p>
+      {{ partial "tag-list.html" . }}
     {{ end }}
   </header>
   {{ $toc := and (eq .Section "notes") (ne .Params.toc false) (gt (len .TableOfContents) 80) }}
