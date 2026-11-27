@@ -96,6 +96,8 @@ ax1.set_xlabel(r"Drain voltage $V_D$ (V)")
 ax1.set_ylabel(r"Drain current $I_D$ ($\mu$A)")
 ax1.set_xlim(0, 10)
 ax1.set_ylim(0, None)
+ax1.text(0.97, 0.36, r"$V_S$ = 0 V", transform=ax1.transAxes,   # 測定条件
+         ha="right", va="bottom", fontsize=7)
 ax1.legend(title=r"$V_G$", title_fontsize=7, loc="upper left",
            handlelength=1.5, borderaxespad=0.3)
 
