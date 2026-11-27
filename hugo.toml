@@ -24,9 +24,9 @@ disableKinds = ["taxonomy", "term", "rss"]
   # ノートのコメント欄(giscus)。repoId と categoryId を https://giscus.app で取得して記入すると表示される
   [params.giscus]
     repo = "semphyx/semphyx.github.io"
-    repoId = ""
+    repoId = "R_kgDORwac8g"
     category = "Announcements"
-    categoryId = ""
+    categoryId = "DIC_kwDORwac8s4DMECg"
 
 [markup]
   [markup.goldmark]
