@@ -27,6 +27,23 @@ hugo new notes/math/fourier-series.md
 `math`(数学)・`physics`(物理)・`semiconductor`(半導体)・`numerical`(数値計算)・
 `computer-engineering`(計算機工学)・`others`(その他)です。
 
+## 注記ボックス
+
+ノートの中で、次のように書くと色付きのボックスになります。
+
+```markdown
+> [!TIP]
+> ポイント(結論・覚えておく式)
+
+> [!NOTE]
+> 補足(脱線・参考)
+
+> [!WARNING]
+> 注意(落とし穴・間違いやすい点)
+```
+
+`> [!TIP] 独自の見出し` のように書くと、見出しを変えられます。
+
 ## ローカルで確認
 
 ```bash

@@ -1,0 +1,18 @@
+{{- /* 同じ分類の中で、日付の古い順に前後のノートへのリンクを出す */ -}}
+{{- $pages := .CurrentSection.RegularPages.ByDate -}}
+{{- $prev := false -}}{{- $next := false -}}{{- $found := false -}}
+{{- range $pages -}}
+  {{- if $found -}}{{- if not $next }}{{ $next = . }}{{ end -}}
+  {{- else if eq .RelPermalink $.RelPermalink -}}{{- $found = true -}}
+  {{- else -}}{{- $prev = . -}}{{- end -}}
+{{- end -}}
+{{- if or $prev $next }}
+<nav class="note-pager" aria-label="前後のノート">
+  <div class="pager-prev">
+    {{- with $prev }}<a href="{{ .RelPermalink }}"><span class="pager-label">← 前のノート</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
+  </div>
+  <div class="pager-next">
+    {{- with $next }}<a href="{{ .RelPermalink }}"><span class="pager-label">次のノート →</span><span class="pager-title">{{ .Title }}</span></a>{{ end -}}
+  </div>
+</nav>
+{{- end }}
