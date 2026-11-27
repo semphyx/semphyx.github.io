@@ -124,6 +124,10 @@ ax2.set_xlim(-5, 10)
 ax2.set_ylim(1e-13, 1e-2)
 ax2r.set_ylim(0, sqrt_id.max() * 1e3 * 1.1)
 
+# 測定条件(ドレイン電圧とソース電圧)を書き込む
+ax2.text(0.97, 0.05, r"$V_D$ = 10 V, $V_S$ = 0 V", transform=ax2.transAxes,
+         ha="right", va="bottom", fontsize=7)
+
 # しきい値電圧(外挿)を示す
 ax2r.annotate(rf"$V_{{th}}$ = {vth_ext:.2f} V", xy=(vth_ext, 0),
               xytext=(vth_ext - 4.2, 2.6), fontsize=7, color=C_RIGHT,
