@@ -4,18 +4,8 @@ title: "ホーム"
 # トップページの情報です。
 # 空文字 "" にした項目や、削除した項目は表示されません。
 # 研究業績(経歴・論文・講演)は researchmap に集約し、ここには載せません。
-# 名前と所属もこのサイトには載せません。
+# 名前・所属・外部ID もトップページには載せません(外部ID はリンクページにあります)。
 # ---------------------------------------------------------------
-researchmap: "https://researchmap.jp/sumio_sugisaki"
-
-ids:                       # 外部 ID(URL が空のものは表示されません)
-  - name: "researchmap"
-    url: "https://researchmap.jp/sumio_sugisaki"
-  - name: "ORCID"
-    url: "https://orcid.org/0009-0007-7809-0164"
-  - name: "Google Scholar"
-    url: "https://scholar.google.co.jp/citations?user=9K_Ui8YAAAAJ&hl=ja"
-
 contact:                   # 連絡先(不要な項目は削除してください)
   - label: "連絡"
     value: ""              # 例: "[お問い合わせフォーム](https://...)"

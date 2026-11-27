@@ -8,19 +8,6 @@
   <div class="prose">{{ .Content }}</div>
 </section>
 
-{{ with $p.researchmap }}
-<section class="section">
-  {{ partial "section-head.html" (dict "en" "Achievements" "ja" "研究業績") }}
-  <a class="outlink" href="{{ . }}" target="_blank" rel="noopener">
-    <span class="outlink-body">
-      <span class="outlink-title">researchmap</span>
-      <span class="outlink-note">経歴・論文・講演などの研究業績はこちらに掲載しています</span>
-    </span>
-    <span class="outlink-arrow" aria-hidden="true">→</span>
-  </a>
-</section>
-{{ end }}
-
 {{ with $p.news }}
 <section class="section">
   {{ partial "section-head.html" (dict "en" "News" "ja" "お知らせ") }}
@@ -34,17 +21,11 @@
 {{ end }}
 
 {{ $contact := where ($p.contact | default (slice)) "value" "!=" "" }}
-{{ $ids := where ($p.ids | default (slice)) "url" "!=" "" }}
-{{ if or $contact $ids }}
+{{ with $contact }}
 <section class="section">
-  {{ if $contact }}
-    {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
-  {{ else }}
-    {{ partial "section-head.html" (dict "en" "Profiles" "ja" "外部ID") }}
-  {{ end }}
+  {{ partial "section-head.html" (dict "en" "Contact" "ja" "連絡先") }}
   <dl class="kv">
-    {{ range $contact }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
-    {{ range $ids }}<dt>{{ .name }}</dt><dd><a class="mono-link" href="{{ .url }}" target="_blank" rel="noopener">{{ .url }}</a></dd>{{ end }}
+    {{ range . }}<dt>{{ .label }}</dt><dd>{{ .value | markdownify }}</dd>{{ end }}
   </dl>
 </section>
 {{ end }}

@@ -157,26 +157,12 @@ main.container { padding-top: 72px; padding-bottom: 80px; }
 .section-head .eyebrow { order: 2; margin: 0 0 0 auto; }
 .section-head h2 { margin: 0; font-family: var(--font-serif); font-weight: 700; font-size: 1.4rem; letter-spacing: .03em; }
 
-/* ---------- researchmap への導線 ---------- */
-.outlink {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 20px 22px; border: 1px solid var(--rule-strong); border-radius: 2px;
-  color: var(--ink); background: none; transition: background-color .15s;
-}
-.outlink:hover { background-color: var(--tint); }
-.outlink-body { display: flex; flex-direction: column; min-width: 0; }
-.outlink-title { font-weight: 700; font-size: 1.1rem; color: var(--link); }
-.outlink-note { color: var(--ink-soft); font-size: .95rem; }
-.outlink-arrow { font-size: 1.4rem; color: var(--brass); transition: transform .2s; }
-.outlink:hover .outlink-arrow { transform: translateX(4px); }
-
 /* ---------- お知らせ・連絡先 ---------- */
 .news, .kv { display: grid; grid-template-columns: max-content 1fr; gap: 10px 28px; margin: 0; }
 .news dt, .kv dt { color: var(--ink-soft); }
 .news dt { font-variant-numeric: tabular-nums; }
 .news dd, .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .news dd p, .kv dd p { margin: 0; }
-.mono-link { overflow-wrap: anywhere; }
 
 /* ---------- リンク集 ---------- */
 .page-head { margin-bottom: 8px; }
