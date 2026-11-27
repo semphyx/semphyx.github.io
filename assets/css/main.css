@@ -25,7 +25,16 @@
 
   --font-serif: "BIZ UDPMincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-sans: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-mono: "JetBrains Mono", "BIZ UDGothic", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* コードの色分け */
+  --code-keyword: #7a3e9d;
+  --code-string: #93550f;
+  --code-number: #1f5fa8;
+  --code-comment: #5b6f64;
+  --code-func: #1d6a50;
+  --code-op: #4a5c52;
+  --code-const: #a83d3a;
 
   --side-w: 232px;
   color-scheme: light;
@@ -51,6 +60,13 @@
     --side-rule: #2f4038;
     --side-border: #526c5d;
     --side-hover: #142019;
+    --code-keyword: #d4a8f0;
+    --code-string: #e6c07b;
+    --code-number: #8fbcf2;
+    --code-comment: #8fa598;
+    --code-func: #8fd3ad;
+    --code-op: #a9bcb1;
+    --code-const: #f29b94;
     color-scheme: dark;
   }
 }
@@ -71,6 +87,13 @@
   --side-rule: #2f4038;
   --side-border: #526c5d;
   --side-hover: #142019;
+  --code-keyword: #d4a8f0;
+  --code-string: #e6c07b;
+  --code-number: #8fbcf2;
+  --code-comment: #8fa598;
+  --code-func: #8fd3ad;
+  --code-op: #a9bcb1;
+  --code-const: #f29b94;
   color-scheme: dark;
 }
 
@@ -264,6 +287,18 @@ article .page-head + .prose, article .toc + .prose { margin-top: 36px; }
 .prose code { font-family: var(--font-mono); background: var(--code-bg); padding: .1em .35em; border-radius: 2px; font-size: .9em; }
 .prose pre { background: var(--code-bg); padding: 14px 16px; overflow-x: auto; line-height: 1.6; border-radius: 2px; }
 .prose pre code { background: none; padding: 0; }
+.prose pre, .prose code { font-variant-ligatures: none; }  /* != や -> を合字にしない */
+.prose pre { font-size: .87rem; line-height: 1.7; tab-size: 4; }
+.chroma .line { display: flex; }
+.chroma .k, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .kt, .chroma .ow { color: var(--code-keyword); }
+.chroma .kc, .chroma .no, .chroma .bp { color: var(--code-const); }
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s1, .chroma .s2,
+.chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .ss { color: var(--code-string); }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo { color: var(--code-number); }
+.chroma .c, .chroma .ch, .chroma .cm, .chroma .c1, .chroma .cs, .chroma .cp, .chroma .cpf { color: var(--code-comment); font-style: italic; }
+.chroma .nf, .chroma .fm, .chroma .nb, .chroma .nc, .chroma .nd, .chroma .nn { color: var(--code-func); }
+.chroma .o, .chroma .p { color: var(--code-op); }
+.chroma .err { color: inherit; background: none; }
 .katex { font-size: 1.1em; }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
 
