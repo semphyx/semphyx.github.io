@@ -21,6 +21,13 @@ disableKinds = ["taxonomy", "term", "rss"]
   titleSub = "半導体の"
   titleMain = "余白ノート"
 
+  # ノートのコメント欄(giscus)。repoId と categoryId を https://giscus.app で取得して記入すると表示される
+  [params.giscus]
+    repo = "semphyx/semphyx.github.io"
+    repoId = ""
+    category = "Announcements"
+    categoryId = ""
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.extensions]

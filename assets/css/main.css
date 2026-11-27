@@ -210,6 +210,10 @@ main.container { padding-top: 72px; padding-bottom: 80px; }
 .toc li { margin: 2px 0; }
 article .page-head + .prose, article .toc + .prose { margin-top: 36px; }
 
+/* ---------- コメント ---------- */
+.comments { margin-top: 80px; }
+.comments-note { margin: 0 0 16px; font-size: .9rem; color: var(--ink-soft); }
+
 /* ---------- 本文 ---------- */
 .prose > :first-child { margin-top: 0; }
 .prose > :last-child { margin-bottom: 0; }

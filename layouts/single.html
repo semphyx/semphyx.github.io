@@ -39,5 +39,7 @@
     </section>
     {{ end }}
   {{ end }}
+
+  {{ if eq .Section "notes" }}{{ partial "comments.html" . }}{{ end }}
 </article>
 {{ end }}
