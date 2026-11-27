@@ -13,13 +13,15 @@ affiliations:              # 現在の所属(複数可)
     department: "TODO: 学部・研究科・専攻など"
     organization: "TODO: 大学・研究機関名"
 
-researchmap: "https://researchmap.jp/"   # TODO: 自分の researchmap ページの URL
+researchmap: "https://researchmap.jp/sumio_sugisaki"
 
 ids:                       # 外部 ID(URL が空のものは表示されません)
   - name: "researchmap"
-    url: "https://researchmap.jp/"       # TODO
+    url: "https://researchmap.jp/sumio_sugisaki"
   - name: "ORCID"
-    url: ""
+    url: "https://orcid.org/0009-0007-7809-0164"
+  - name: "Google Scholar"
+    url: "https://scholar.google.co.jp/citations?user=9K_Ui8YAAAAJ&hl=ja"
 
 contact:                   # 連絡先(不要な項目は削除してください)
   - label: "所在地"

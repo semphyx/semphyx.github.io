@@ -11,12 +11,12 @@ groups:
     en: "Researcher profiles"
     items:
       - name: "researchmap"
-        url: "https://researchmap.jp/"   # TODO: 自分のページの URL
+        url: "https://researchmap.jp/sumio_sugisaki"
         note: "経歴・論文・講演などの研究業績はこちらにまとめています。"
       - name: "ORCID"
-        url: ""
+        url: "https://orcid.org/0009-0007-7809-0164"
       - name: "Google Scholar"
-        url: ""
+        url: "https://scholar.google.co.jp/citations?user=9K_Ui8YAAAAJ&hl=ja"
 
   - title: "所属機関"
     en: "Affiliation"
