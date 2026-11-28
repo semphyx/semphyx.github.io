@@ -26,7 +26,7 @@ hugo new notes/math/fourier-series.md
 
 作られたファイルの `draft: true` を `false` にすると公開されます。分類のフォルダ名は
 `math`(数学)・`physics`(物理)・`semiconductor`(半導体)・`numerical`(数値計算)・
-`computer-engineering`(計算機工学)・`others`(その他)です。
+`computer-engineering`(計算機工学)・`research-writing`(執筆・研究の進め方)・`others`(その他)です。
 
 ## 講義ノート(章が続くテキスト)
 
